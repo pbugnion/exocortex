@@ -1,18 +1,24 @@
 
 import React, { Component } from 'react'
+import { Provider } from 'react-redux';
 
-import MarkdownViewer from './MarkdownViewer'
+import { store } from './store'
+
+// import MarkdownViewer from './MarkdownViewer'
+import PostSelector from './PostSelector'
 
 import 'photonkit/dist/css/photon.css'
 
 class App extends Component {
     render() {
 	return (
-	    <div className='window'>
-	      <div className='window-content'>
-		<MarkdownViewer />
+	    <Provider store={store}>
+	      <div className='window'>
+		<div className='window-content'>
+		  <PostSelector />
+		</div>
 	      </div>
-	    </div>
+	    </Provider>
 	);
     }
 }
