@@ -6,18 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import logger from 'redux-logger'
 
 import appSagas from './actions'
-
-const initialState = {
-    receivedPosts: false,
-    posts: null
-}
-
-const reducer = (state = initialState, action) => {
-    if (action.type === 'RECEIVED_POST_LIST') {
-	return {...state, posts: action.files, receivedPosts: true}
-    }
-    return state
-}
+import reducer from './reducer'
 
 export const history = createHashHistory()
 
