@@ -1,23 +1,27 @@
 
 import React, { Component } from 'react'
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router'
 
-import { store } from './store'
+import Routes from './routes';
 
-// import MarkdownViewer from './MarkdownViewer'
-import PostSelector from './contents/PostSelector'
+import { configureStore, history } from './store'
 
 import 'photonkit/dist/css/photon.css'
+
+const store = configureStore()
 
 class App extends Component {
     render() {
 	return (
 	    <Provider store={store}>
-	      <div className='window'>
-		<div className='window-content'>
-		  <PostSelector />
+	      <ConnectedRouter history={history}>
+		<div className='window'>
+		  <div className='window-content'>
+		    <Routes />
+		  </div>
 		</div>
-	      </div>
+	      </ConnectedRouter>
 	    </Provider>
 	);
     }

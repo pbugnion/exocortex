@@ -1,11 +1,20 @@
 
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { createHashHistory } from 'history';
 
-const reducer = (state = {}, action) => state
+//const reducer = (state = {}, action) => state
+const reducer = combineReducers({})
+
+export const history = createHashHistory()
+
+const router = routerMiddleware(history);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(
-    reducer,
-    composeEnhancers(applyMiddleware())
-)
+export function configureStore() {
+    return createStore(
+	connectRouter(history)(reducer),
+	composeEnhancers(applyMiddleware(router))
+    )
+}
