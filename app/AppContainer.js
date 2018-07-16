@@ -7,7 +7,7 @@ const mapStateToProps = state => {return {}}
 
 const mapDispatchToProps = dispatch => {
     return {
-	onAppStart: () => { console.log('hello app start') }
+	onAppStart: () => { dispatch({ type: 'APP_START' }) }
     }
 }
 
