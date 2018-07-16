@@ -7,7 +7,12 @@ import logger from 'redux-logger'
 
 import appSagas from './actions'
 
-const reducer = (state = {}, action) => state
+const reducer = (state = {}, action) => {
+    if (action.type === 'RECEIVED_POST_LIST') {
+	return {posts: action.files}
+    }
+    return state
+}
 
 export const history = createHashHistory()
 
