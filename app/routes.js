@@ -3,10 +3,10 @@ import React from 'react'
 
 import { Route, Switch } from 'react-router'
 
-import ContentsPage from './contents/ContentsPage'
+import ContentsPageContainer from './contents/ContentsPageContainer'
 
 export default () => (
     <Switch>
-	<Route exact path="/" component={ContentsPage} />
+	<Route exact path="/" component={ContentsPageContainer} />
     </Switch>
 )

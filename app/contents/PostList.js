@@ -1,14 +1,11 @@
 
 import React, { Component } from 'react'
 
-class PostSelector extends Component {
+class PostList extends Component {
 
     render() {
-	const postList = [
-	    'first',
-	    'second'
-	]
-	const postListItems = postList.map(
+	const { postTitles } = this.props
+	const postListItems = postTitles.map(
 	    post =>
 		<li key={post} className="list-group-item" onClick={() => console.log('hello')}>{post}</li>
 	)
@@ -22,4 +19,4 @@ class PostSelector extends Component {
     }
 }
 
-export default PostSelector
+export default PostList

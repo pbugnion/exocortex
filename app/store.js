@@ -7,9 +7,14 @@ import logger from 'redux-logger'
 
 import appSagas from './actions'
 
-const reducer = (state = {}, action) => {
+const initialState = {
+    receivedPosts: false,
+    posts: null
+}
+
+const reducer = (state = initialState, action) => {
     if (action.type === 'RECEIVED_POST_LIST') {
-	return {posts: action.files}
+	return {...state, posts: action.files, receivedPosts: true}
     }
     return state
 }
