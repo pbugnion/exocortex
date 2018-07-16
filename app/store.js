@@ -3,8 +3,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { createHashHistory } from 'history';
 
-//const reducer = (state = {}, action) => state
-const reducer = combineReducers({})
+const reducer = (state = {}, action) => state
 
 export const history = createHashHistory()
 
