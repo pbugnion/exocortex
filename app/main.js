@@ -8,7 +8,7 @@ function installExtensions() {
     const installExtension = require('electron-devtools-installer').default
     const { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer')
 
-    const promises = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS].map(
+    const promises = [REACT_DEVELOPER_TOOLS].map(
 	extension =>
 	    installExtension(extension)
 	    .then(name => console.log(`Added Extension:  ${name}`))
