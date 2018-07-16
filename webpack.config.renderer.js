@@ -30,7 +30,8 @@ module.exports = {
 		    loader: 'babel-loader',
 		    options: {
 			cacheDirectory: true,
-			presets: ['react']
+			presets: ['react'],
+			plugins: ['transform-object-rest-spread']
 		    }
 		}
 	    },
