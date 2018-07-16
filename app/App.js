@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store'
 
 // import MarkdownViewer from './MarkdownViewer'
-import PostSelector from './PostSelector'
+import PostSelector from './contents/PostSelector'
 
 import 'photonkit/dist/css/photon.css'
 
