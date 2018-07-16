@@ -4,10 +4,10 @@ import React, { Component } from 'react'
 class PostList extends Component {
 
     render() {
-	const { postTitles } = this.props
-	const postListItems = postTitles.map(
-	    post =>
-		<li key={post} className="list-group-item" onClick={() => console.log('hello')}>{post}</li>
+	const { postIds, posts } = this.props
+	const postListItems = postIds.map(
+	    postId =>
+		<li key={postId} className="list-group-item" onClick={() => console.log(postId)}>{posts[postId]}</li>
 	)
 	return (
 	    <div>

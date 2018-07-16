@@ -11,8 +11,8 @@ class ContentsPage extends Component {
 	    return <div>Loading...</div>
 	}
 	else {
-	    const { posts } = this.props
-	    return <PostList postTitles={posts} />
+	    const { postIds, posts } = this.props
+	    return <PostList postIds={postIds} posts={posts} />
 	}
     }
 
