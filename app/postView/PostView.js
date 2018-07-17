@@ -7,9 +7,9 @@ import ReactMarkdown from 'react-markdown'
 
 class PostView extends Component {
     render() {
-	const { post } = this.props
-	if (post === null || post.contents === null) {
-	    return <div>Loading post</div>
+	const { isLoaded, post } = this.props
+	if (!isLoaded) {
+	    return <div>Loading post...</div>
 	} else {
 	    return <ReactMarkdown source={post.contents} />
 	}
