@@ -62,4 +62,17 @@ describe('Tags.buildInvertedIndex', () => {
 	    'only-1': ['/path/1']
 	})
     })
+
+    test('post with missing tags field', () => {
+	const posts = {
+	    '/path/1': {
+		tags: ['only-1']
+	    },
+	    '/path/2': {}
+	}
+	const tagIndex = Tags.buildTagInvertedIndex(posts)
+	expect(tagIndex).toEqual({
+	    'only-1': ['/path/1']
+	})
+    })
 })
