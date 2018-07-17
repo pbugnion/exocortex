@@ -5,13 +5,12 @@ import fs from 'fs'
 
 import ReactMarkdown from 'react-markdown'
 
-//const source = fs.readFileSync('/Users/pascal/blogpost.md', {encoding: 'utf-8'})
-
 class PostView extends Component {
     render() {
-	const { postId, post } = this.props
-	return <div>{postId} : {post.path}</div>
-	//return <ReactMarkdown source={source} />
+	// TODO what if the post has no contents yet
+	const { post } = this.props
+	console.log(post.contents)
+	return <ReactMarkdown source={post.contents} />
     }
 }
 
