@@ -10,7 +10,7 @@ import ReactMarkdown from 'react-markdown'
 class PostView extends Component {
     render() {
 	const { postId, post } = this.props
-	return <div>{postId} : {post}</div>
+	return <div>{postId} : {post.path}</div>
 	//return <ReactMarkdown source={source} />
     }
 }

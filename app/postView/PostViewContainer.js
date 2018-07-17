@@ -5,7 +5,8 @@ import PostView from './PostView'
 
 const mapStateToProps = (state, ownProps) => {
     const { postId } = ownProps
-    return { postId, post: state.posts.posts[postId] }
+    const { posts } = state
+    return { postId, post: posts.posts[postId] }
 }
 
 export default connect(mapStateToProps)(PostView)

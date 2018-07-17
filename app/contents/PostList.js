@@ -10,7 +10,7 @@ class PostList extends Component {
 	const postListItems = postIds.map(
 	    postId => (
 		<li key={postId} className="list-group-item">
-		  <Link to={`/post/0`}>{posts[postId]}</Link>
+		  <Link to={`/post/0`}>{posts[postId].path}</Link>
 		</li>
 	    )
 	)

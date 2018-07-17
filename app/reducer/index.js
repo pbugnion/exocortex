@@ -14,10 +14,10 @@ function posts(state = initialPostState, action) {
     case RECEIVED_POST_LIST:
 	const newPosts = {}
 	const newPostIds = []
-	action.files.map((file, index) => {
+	action.paths.map((path, index) => {
 	    const newPostId = index.toString()
 	    newPostIds.push(newPostId)
-	    newPosts[newPostId] = file
+	    newPosts[newPostId] = { path }
 	})
 	return {...state, postIds: newPostIds, posts: newPosts, receivedPosts: true}
     default:
