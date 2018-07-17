@@ -1,16 +1,18 @@
 
 import React, { Component } from 'react'
 
-import MarkdownViewer from './MarkdownViewer'
-
-import 'photonkit/dist/css/photon.css'
+import Routes from './routes';
 
 class App extends Component {
+    componentDidMount() {
+	this.props.onAppStart()
+    }
+
     render() {
 	return (
 	    <div className='window'>
 	      <div className='window-content'>
-		<MarkdownViewer />
+		<Routes />
 	      </div>
 	    </div>
 	);

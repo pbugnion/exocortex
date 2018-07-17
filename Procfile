@@ -1,2 +1,2 @@
 renderer: NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.js
-main: HOT=1 NODE_ENV=development electron -r babel-register ./app/main.js
+main: HOT=1 NODE_ENV=development ELECTRON_DISABLE_SECURITY_WARNINGS=1 electron -r babel-register ./app/main.js

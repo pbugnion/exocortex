@@ -11,10 +11,12 @@
    "devDependencies": {
       "babel-cli": "^6.26.0",
       "babel-loader": "^7.1.5",
+      "babel-plugin-transform-object-rest-spread": "^6.26.0",
       "babel-preset-react": "^6.24.1",
       "cross-env": "^5.2.0",
       "css-loader": "^1.0.0",
       "electron": "^2.0.5",
+      "electron-devtools-installer": "^2.2.4",
       "file-loader": "^1.1.11",
       "foreman": "^3.0.1",
       "style-loader": "^0.21.0",
@@ -24,9 +26,15 @@
       "webpack-dev-server": "^3.1.4"
    },
    "dependencies": {
+      "connected-react-router": "^4.3.0",
       "photonkit": "^0.1.2",
       "react": "^16.4.1",
       "react-dom": "^16.4.1",
-      "react-markdown": "^3.3.4"
+      "react-markdown": "^3.3.4",
+      "react-redux": "^5.0.7",
+      "react-router-dom": "^4.3.1",
+      "redux": "^4.0.0",
+      "redux-logger": "^3.0.6",
+      "redux-saga": "^0.16.0"
    }
 }
