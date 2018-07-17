@@ -27,6 +27,7 @@
    },
    "dependencies": {
       "connected-react-router": "^4.3.0",
+      "js-yaml": "^3.12.0",
       "photonkit": "^0.1.2",
       "react": "^16.4.1",
       "react-dom": "^16.4.1",
