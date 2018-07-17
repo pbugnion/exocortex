@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom'
 class PostList extends Component {
 
     render() {
-	const { postIds, posts } = this.props
-	const postListItems = postIds.map(
-	    postId => (
-		<li key={postId} className="list-group-item">
-		  <Link to={`/post/0`}>{posts[postId].path}</Link>
+	const { postPaths } = this.props
+	const postListItems = postPaths.map(
+	    // TODO use library to stringify query
+	    postPath => (
+		<li key={postPath} className="list-group-item">
+		  <Link to={`/post?path=${postPath}`}>{postPath}</Link>
 		</li>
 	    )
 	)

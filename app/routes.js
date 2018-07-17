@@ -10,10 +10,11 @@ export default () => (
     <Switch>
 	<Route exact path="/" component={ContentsPageContainer} />
 	<Route
-	  path="/post/:postId"
-	  render={({ match }) => (
-	      <PostViewContainer postId={match.params.postId} />
-	  )}
+	  path="/post" // Expect post path in query string
+	  render={({ location }) => {
+	      const query = new URLSearchParams(location.search)
+	      return <PostViewContainer postPath={query.get('path')} />
+	  }}
 	/>
     </Switch>
 )
