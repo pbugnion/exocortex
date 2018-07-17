@@ -75,4 +75,17 @@ describe('Tags.buildInvertedIndex', () => {
 	    'only-1': ['/path/1']
 	})
     })
+
+    test('post with badly-formed tags field', () => {
+	const posts = {
+	    '/path/1': {
+		tags: ['only-1']
+	    },
+	    'second-post': {
+		tags: 'not-an-array'
+	    }
+	}
+	expect(() => Tags.buildTagInvertedIndex(posts))
+	    .toThrow(/second-post/)
+    })
 })
