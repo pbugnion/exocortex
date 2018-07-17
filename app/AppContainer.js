@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import App from './app'
 import { APP_START } from './actions'
 
-const mapStateToProps = state => {return {}}
+const mapStateToProps = state => state
 
 const mapDispatchToProps = dispatch => {
     return {
