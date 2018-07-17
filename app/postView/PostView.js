@@ -1,9 +1,7 @@
 
 import React, { Component } from 'react'
 
-import fs from 'fs'
-
-import ReactMarkdown from 'react-markdown'
+import PostAst from './PostAst'
 
 class PostView extends Component {
     render() {
@@ -11,7 +9,7 @@ class PostView extends Component {
 	if (!isLoaded) {
 	    return <div>Loading post...</div>
 	} else {
-	    return <ReactMarkdown source={post.contents} />
+	    return <PostAst ast={post.ast} />
 	}
     }
 }
