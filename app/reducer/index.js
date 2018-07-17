@@ -15,8 +15,9 @@ function posts(state = initialPostState, action) {
 	const newPosts = {}
 	const newPostIds = []
 	action.files.map((file, index) => {
-	    newPostIds.push(index)
-	    newPosts[index] = file
+	    const newPostId = index.toString()
+	    newPostIds.push(newPostId)
+	    newPosts[newPostId] = file
 	})
 	return {...state, postIds: newPostIds, posts: newPosts, receivedPosts: true}
     default:
