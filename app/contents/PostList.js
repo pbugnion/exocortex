@@ -18,7 +18,7 @@ class PostList extends Component {
 
 	postPaths.forEach((path, index) => {
 	    postNodes.push({
-		id: path,
+		id: `post:${path}`,
 		label: path
 	    })
 	    postIndex[path] = index
@@ -29,29 +29,33 @@ class PostList extends Component {
 
 	Object.entries(tagIndex).forEach(([tag, posts], index) => {
 	    tagNodes.push({
-		id: tag,
+		id: `tag:${tag}`,
 		label: tag,
-		color: 'red'
+		color: 'red',
+		shape: 'triangleDown'
 	    })
 	    const nodeIndex = index + postNodes.length
 
 	    posts.forEach(post => {
 		tagToPostEdges.push({
-		    from: tag,
-		    to: post
+		    from: `tag:${tag}`,
+		    to: `post:${post}`
 		})
 	    })
 	})
 	
 	const options = {
 	    edges: {
-		color: 'red'
+		color: '#000000'
 	    }
 	}
 	const events = {
 	    click: (event) => {
 		const [node] = event.nodes
-		this.props.navigateToPost(node)
+		const [group, path] = node.split(':', 2)
+		if (group === 'post') {
+		    this.props.navigateToPost(path)
+		}
 	    }
 	}
 	const graph = { nodes: [...postNodes, ...tagNodes], edges: tagToPostEdges }
