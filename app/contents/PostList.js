@@ -3,25 +3,63 @@ import React, { Component } from 'react'
 
 import { Link } from 'react-router-dom'
 
+import Graph from 'react-graph-vis'
+
+import { Tags } from '../services/posts'
+
 class PostList extends Component {
 
     render() {
-	const { postPaths } = this.props
-	const postListItems = postPaths.map(
-	    // TODO use library to stringify query
-	    postPath => (
-		<li key={postPath} className="list-group-item">
-		  <Link to={`/post?path=${postPath}`}>{postPath}</Link>
-		</li>
-	    )
-	)
-	return (
-	    <div>
-	      <ul className="list-group">
-		{postListItems}
-	      </ul>
-	    </div>
-	)
+	const { postPaths, posts } = this.props
+	const tagIndex = Tags.buildTagInvertedIndex(posts)
+
+	const postIndex = {}
+	const postNodes = []
+
+	postPaths.forEach((path, index) => {
+	    postNodes.push({
+		id: `post:${path}`,
+		label: path
+	    })
+	    postIndex[path] = index
+	})
+
+	const tagNodes = []
+	const tagToPostEdges = []
+
+	Object.entries(tagIndex).forEach(([tag, posts], index) => {
+	    tagNodes.push({
+		id: `tag:${tag}`,
+		label: tag,
+		color: 'red',
+		shape: 'triangleDown'
+	    })
+	    const nodeIndex = index + postNodes.length
+
+	    posts.forEach(post => {
+		tagToPostEdges.push({
+		    from: `tag:${tag}`,
+		    to: `post:${post}`
+		})
+	    })
+	})
+	
+	const options = {
+	    edges: {
+		color: '#000000'
+	    }
+	}
+	const events = {
+	    click: (event) => {
+		const [node] = event.nodes
+		const [group, path] = node.split(':', 2)
+		if (group === 'post') {
+		    this.props.navigateToPost(path)
+		}
+	    }
+	}
+	const graph = { nodes: [...postNodes, ...tagNodes], edges: tagToPostEdges }
+	return <Graph graph={graph} options={options} events={events} />
     }
 }
 
