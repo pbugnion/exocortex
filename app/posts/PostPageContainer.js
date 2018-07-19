@@ -1,7 +1,8 @@
 
 import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
 
-import PostView from './PostView'
+import PostPage from './PostPage'
 
 const mapStateToProps = ({ posts }, ownProps) => {
     const { postPath } = ownProps
@@ -15,5 +16,10 @@ const mapStateToProps = ({ posts }, ownProps) => {
     return { postPath, isLoaded, post }
 }
 
-export default connect(mapStateToProps)(PostView)
-    
+const mapDispatchToProps = (dispatch) => {
+    return {
+	onNavigateHome: () => dispatch(push('/'))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage)

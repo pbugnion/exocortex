@@ -11,9 +11,7 @@ class App extends Component {
     render() {
 	return (
 	    <div className='window'>
-	      <div className='window-content'>
-		<Routes />
-	      </div>
+	      <Routes />
 	    </div>
 	);
     }

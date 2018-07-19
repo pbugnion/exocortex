@@ -20,7 +20,7 @@ function installExtensions() {
 function createWindow () {
     // Create the browser window.
     installExtensions().then(() => {
-	window = new BrowserWindow({width: 800, height: 600})
+	window = new BrowserWindow({width: 800, height: 600, titleBarStyle: 'hidden'})
 
 	window.loadURL(`file://${__dirname}/app.html`);
 
