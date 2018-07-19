@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux'
 
-import PostView from './PostView'
+import PostPage from './PostPage'
 
 const mapStateToProps = ({ posts }, ownProps) => {
     const { postPath } = ownProps
@@ -15,5 +15,4 @@ const mapStateToProps = ({ posts }, ownProps) => {
     return { postPath, isLoaded, post }
 }
 
-export default connect(mapStateToProps)(PostView)
-    
+export default connect(mapStateToProps)(PostPage)

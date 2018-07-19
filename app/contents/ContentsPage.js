@@ -8,16 +8,18 @@ class ContentsPage extends Component {
     render() {
 	const { receivedPosts } = this.props
 	if (!receivedPosts) {
-	    return <div>Loading...</div>
+	    return <div className="window-content">Loading...</div>
 	}
 	else {
 	    const { postPaths, posts, navigateToPost } = this.props
 	    return (
-		<PostList
-		  postPaths={postPaths}
-		  posts={posts}
-		  navigateToPost={navigateToPost}
-		/>
+		<div className="window-content">
+		  <PostList
+		    postPaths={postPaths}
+		    posts={posts}
+		    navigateToPost={navigateToPost}
+		    />
+		</div>
 	    )
 	}
     }
