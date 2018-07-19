@@ -23,3 +23,11 @@ export class Tags {
 	return tagsIndex
     }
 }
+
+export class Metadata {
+    static fromFrontMatter(frontMatter) {
+	const tags = frontMatter.tags ? frontMatter.tags : []
+	const title = (typeof frontMatter.title === 'undefined') ? null : frontMatter.title
+	return { tags, title }
+    }
+}

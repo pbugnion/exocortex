@@ -1,5 +1,5 @@
 
-import { Tags } from './posts'
+import { Tags, Metadata } from './posts'
 
 describe('Tags.buildInvertedIndex', () => {
     test('single post', () => {
@@ -87,5 +87,46 @@ describe('Tags.buildInvertedIndex', () => {
 	}
 	expect(() => Tags.buildTagInvertedIndex(posts))
 	    .toThrow(/second-post/)
+    })
+})
+
+describe('metadata.fromFrontMatter', () => {
+    test('full frontmatter', () => {
+	const rawFrontMatter = {
+	    tags: ['first', 'second'],
+	    title: 'some-title'
+	}
+	expect(Metadata.fromFrontMatter(rawFrontMatter)).toEqual({
+	    tags: ['first', 'second'],
+	    title: 'some-title'
+	})
+    })
+
+    test('no tags', () => {
+	const rawFrontMatter = {
+	    title: 'some-title'
+	}
+	expect(Metadata.fromFrontMatter(rawFrontMatter).tags).toEqual([])
+    })
+
+    test('empty tags', () => {
+	const rawFrontMatter = {
+	    tags: [],
+	}
+	expect(Metadata.fromFrontMatter(rawFrontMatter).tags).toEqual([])
+    })
+
+    test('no title', () => {
+	const rawFrontMatter = {
+	    tags: ['first', 'second']
+	}
+	expect(Metadata.fromFrontMatter(rawFrontMatter).title).toBeNull()
+    })
+
+    test('empty title', () => {
+	const rawFrontMatter = {
+	    title: ''
+	}
+	expect(Metadata.fromFrontMatter(rawFrontMatter).title).toEqual('')
     })
 })
