@@ -1,5 +1,5 @@
 
-import { Tags, Metadata } from './posts'
+import { Tags, Metadata, MetadataParseError } from './posts'
 
 describe('Tags.buildInvertedIndex', () => {
     test('single post', () => {
@@ -116,6 +116,14 @@ describe('metadata.fromFrontMatter', () => {
 	expect(Metadata.fromFrontMatter(rawFrontMatter).tags).toEqual([])
     })
 
+    test('bad tags', () => {
+	const rawFrontMatter = {
+	    tags: 'not-an-array'
+	}
+	expect(() => Metadata.fromFrontMatter(rawFrontMatter))
+	    .toThrow(MetadataParseError)
+    })
+
     test('no title', () => {
 	const rawFrontMatter = {
 	    tags: ['first', 'second']
@@ -128,5 +136,13 @@ describe('metadata.fromFrontMatter', () => {
 	    title: ''
 	}
 	expect(Metadata.fromFrontMatter(rawFrontMatter).title).toEqual('')
+    })
+
+    test('bad title', () => {
+	const rawFrontMatter = {
+	    title: ['should', 'not', 'be', 'an', 'array']
+	}
+	expect(() => Metadata.fromFrontMatter(rawFrontMatter))
+	    .toThrow(MetadataParseError)
     })
 })
