@@ -5,12 +5,13 @@ import path from 'path'
 import yaml from 'js-yaml'
 
 import { MarkdownParser } from './services/markdown'
+import { Metadata } from './services/posts'
 
 export const APP_START = 'APP_START'
 export const RECEIVED_POST_LIST = 'RECEIVED_POST_LIST'
 export const RECEIVED_POST_CONTENTS = 'RECEIVED_POST_CONTENTS'
 export const RECEIVED_POST_AST = 'RECEIVED_POST_AST'
-export const RECEIVED_POST_ATTRIBUTES = 'RECEIVED_POST_ATTRIBUTES'
+export const RECEIVED_POST_METADATA = 'RECEIVED_POST_METADATA'
 
 function* watchAppStartup() {
     yield takeEvery(APP_START, getPostList)
@@ -31,10 +32,10 @@ function* getPostList() {
 	if (typeof frontMatterNode !== 'undefined') {
 	    const frontMatter = frontMatterNode.value
 	    const loadedYaml = yaml.safeLoad(frontMatter)
-	    const tags = loadedYaml.tags ? loadedYaml.tags : []
-	    yield put({ type: RECEIVED_POST_ATTRIBUTES, filePath, tags })
+	    const metadata = Metadata.fromFrontMatter(loadedYaml)
+	    yield put({ type: RECEIVED_POST_METADATA, filePath, metadata })
 	} else {
-	    yield put({ type: RECEIVED_POST_ATTRIBUTES, filePath, tags: [] })
+	    yield put({ type: RECEIVED_POST_METADATA, filePath, metadata: Metadata.default() })
 	}
     }
 }

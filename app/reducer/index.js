@@ -5,7 +5,7 @@ import {
     RECEIVED_POST_LIST,
     RECEIVED_POST_CONTENTS,
     RECEIVED_POST_AST,
-    RECEIVED_POST_ATTRIBUTES
+    RECEIVED_POST_METADATA
 } from '../actions'
 
 const initialPostState = {
@@ -33,10 +33,10 @@ function posts(state = initialPostState, action) {
 	const newPosts = { ...state.posts, [filePath]: newPost }
 	return { ...state, posts: newPosts }
     }
-    case RECEIVED_POST_ATTRIBUTES: {
-	const { filePath, tags } = action
+    case RECEIVED_POST_METADATA: {
+	const { filePath, metadata } = action
 	const oldPost = state.posts[filePath]
-	const newPost = { ...oldPost, tags }
+	const newPost = { ...oldPost, metadata }
 	const newPosts = { ...state.posts, [filePath]: newPost }
 	return { ...state, posts: newPosts }
     }

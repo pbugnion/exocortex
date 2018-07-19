@@ -1,7 +1,12 @@
 
 export class Tags {
     static findAll(filePath, post) {
-	const tags = post.tags ? post.tags : []
+	const metadata = Metadata.getMetadata(post)
+	const tags = (
+	      (typeof metadata.tags === 'undefined' || metadata.tags === null) ?
+		[] :
+		metadata.tags
+	)
 	if (! Array.isArray(tags)) {
 	    throw new Error(`Tags for ${filePath} is not an array.`)
 	}
@@ -56,5 +61,20 @@ export class Metadata {
 	    )
 	}
 	return { tags, title }
+    }
+
+    static default() {
+	return {
+	    tags: [],
+	    title: null
+	}
+    }
+
+    static getMetadata(post) {
+	if (typeof post.metadata === 'undefined' || post.metadata === null) {
+	    return this.default()
+	} else {
+	    return post.metadata
+	}
     }
 }
