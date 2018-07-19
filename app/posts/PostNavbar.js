@@ -1,7 +1,7 @@
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class PostNavbar extends Component {
+class PostNavbar extends PureComponent {
     render() {
 	const { postPath, onNavigateHome } = this.props
 	return (
