@@ -50,7 +50,7 @@ class PostList extends Component {
 	
 	const options = {
 	    edges: {
-		color: '#000000'
+		arrows: ''
 	    },
 	    groups: {
 		posts: {
