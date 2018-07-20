@@ -12,6 +12,7 @@ export const RECEIVED_POST_LIST = 'RECEIVED_POST_LIST'
 export const RECEIVED_POST_CONTENTS = 'RECEIVED_POST_CONTENTS'
 export const RECEIVED_POST_AST = 'RECEIVED_POST_AST'
 export const RECEIVED_POST_METADATA = 'RECEIVED_POST_METADATA'
+export const FINISHED_LOADING_POSTS = 'FINISHED_LOADING_POSTS'
 
 function* watchAppStartup() {
     yield takeEvery(APP_START, getPostList)
@@ -38,6 +39,7 @@ function* getPostList() {
 	    yield put({ type: RECEIVED_POST_METADATA, filePath, metadata: Metadata.default() })
 	}
     }
+    yield put({ type: FINISHED_LOADING_POSTS })
 }
 
 export default function* appSagas() {

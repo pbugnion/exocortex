@@ -5,13 +5,15 @@ import {
     RECEIVED_POST_LIST,
     RECEIVED_POST_CONTENTS,
     RECEIVED_POST_AST,
-    RECEIVED_POST_METADATA
+    RECEIVED_POST_METADATA,
+    FINISHED_LOADING_POSTS
 } from '../actions'
 
 const initialPostState = {
     receivedPosts: false,
     postPaths: null,
-    posts: {}
+    posts: {},
+    finishedLoadingPosts: false
 }
 
 function posts(state = initialPostState, action) {
@@ -40,6 +42,8 @@ function posts(state = initialPostState, action) {
 	const newPosts = { ...state.posts, [filePath]: newPost }
 	return { ...state, posts: newPosts }
     }
+    case FINISHED_LOADING_POSTS:
+	return { ...state, finishedLoadingPosts: true }
     default:
 	return state
     }
