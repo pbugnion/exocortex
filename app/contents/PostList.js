@@ -33,7 +33,10 @@ class PostList extends Component {
 		label: tag,
 		group: 'tags',
 		mass: Math.pow(posts.length, 1.5),
-		size: 10
+		font: {
+		    size: 14 * Math.pow(posts.length, 0.4)
+		},
+		size: 10 * Math.pow(posts.length, 0.3)
 	    })
 	    const nodeIndex = index + postNodes.length
 
