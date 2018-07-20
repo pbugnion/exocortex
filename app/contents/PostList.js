@@ -8,6 +8,15 @@ import Graph from 'react-graph-vis'
 import { Tags, Title } from '../services/posts'
 
 class PostList extends Component {
+    constructor(props) {
+	super(props)
+	this.graphRef = React.createRef()
+    }
+
+    getNetwork() {
+	return this.graphRef.current.Network
+    }
+
     render() {
 	const { postPaths, posts } = this.props
 	const tagIndex = Tags.buildTagInvertedIndex(posts)
@@ -20,6 +29,7 @@ class PostList extends Component {
 		id: `post:${path}`,
 		label: Title.findOrFallback(path, posts[path]),
 		group: 'posts',
+		entity: 'post'
 	    })
 	    postIndex[path] = index
 	})
@@ -36,7 +46,8 @@ class PostList extends Component {
 		font: {
 		    size: 14 * Math.pow(posts.length, 0.4)
 		},
-		size: 10 * Math.pow(posts.length, 0.3)
+		size: 10 * Math.pow(posts.length, 0.3),
+		entity: 'tag'
 	    })
 	    const nodeIndex = index + postNodes.length
 
@@ -59,7 +70,7 @@ class PostList extends Component {
 	    groups: {
 		posts: {
 		    shape: 'box',
-		    color: 'rgb(192,207,253)'
+		    color: 'rgb(192,207,253)',
 		},
 		tags: {
 		    shape: 'dot',
@@ -74,20 +85,42 @@ class PostList extends Component {
 		    springLength: 50
 	    	},
 		maxVelocity: 20,
-	    	stabilization: {iterations: 10000}
+	    	stabilization: {
+		    iterations: 10000
+		}
 	    }
 	}
 	const events = {
-	    click: (event) => {
+	    doubleClick: (event) => {
+	    	const [node] = event.nodes
+	    	const [group, path] = node.split(':', 2)
+	    	if (group === 'post') {
+	    	    this.props.navigateToPost(path)
+	    	}
+	    },
+	    selectNode: event => {
 		const [node] = event.nodes
-		const [group, path] = node.split(':', 2)
-		if (group === 'post') {
-		    this.props.navigateToPost(path)
+		const [group, id] = node.split(':', 2)
+		if (group === 'tag') {
+		    const neighbouringPosts = tagIndex[id]
+		    const neighbouringPostNodeIds = neighbouringPosts.map(
+			post => `post:${post}`
+		    )
+		    this.getNetwork().selectNodes(
+			[node, ...neighbouringPostNodeIds]
+		    )
 		}
 	    }
 	}
 	const graph = { nodes: [...postNodes, ...tagNodes], edges: tagToPostEdges }
-	return <Graph graph={graph} options={options} events={events} />
+	return (
+	    <Graph
+	      graph={graph}
+	      options={options}
+	      events={events}
+	      ref={this.graphRef}
+	    />
+	)
     }
 }
 
