@@ -1,29 +1,26 @@
 
 import React, { Component } from 'react'
 
-import PostList from './PostList'
+import ContentsBody from './ContentsBody'
 
 class ContentsPage extends Component {
-
     render() {
-	const { finishedLoadingPosts } = this.props
-	if (!finishedLoadingPosts) {
-	    return <div className="window-content">Loading...</div>
-	}
-	else {
-	    const { postPaths, posts, navigateToPost } = this.props
-	    return (
-		<div className="window-content">
-		  <PostList
-		    postPaths={postPaths}
-		    posts={posts}
-		    navigateToPost={navigateToPost}
-		    />
-		</div>
-	    )
-	}
-    }
+	const {
+	    finishedLoadingPosts,
+	    postPaths,
+	    posts,
+	    navigateToPost
+	} = this.props
 
+	return (
+	    <ContentsBody
+	      finishedLoadingPosts={finishedLoadingPosts}
+	      postPaths={postPaths}
+	      posts={posts}
+	      navigateToPost={navigateToPost}
+	    />
+	)
+    }
 }
 
 export default ContentsPage
