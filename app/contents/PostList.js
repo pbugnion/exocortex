@@ -54,11 +54,12 @@ class PostList extends Component {
 	    },
 	    groups: {
 		posts: {
-		    shape: 'box'
+		    shape: 'box',
+		    color: 'rgb(192,207,253)'
 		},
 		tags: {
-		    color: 'red',
 		    shape: 'dot',
+		    color: 'rgb(253,180,153)',
 		}
 	    },
 	    physics: {
