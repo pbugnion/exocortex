@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import Graph from 'react-graph-vis'
 
-import { Tags } from '../services/posts'
+import { Tags, Title } from '../services/posts'
 
 class PostList extends Component {
 
@@ -19,7 +19,7 @@ class PostList extends Component {
 	postPaths.forEach((path, index) => {
 	    postNodes.push({
 		id: `post:${path}`,
-		label: path
+		label: Title.findOrFallback(path, posts[path])
 	    })
 	    postIndex[path] = index
 	})

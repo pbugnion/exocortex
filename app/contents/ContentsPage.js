@@ -6,8 +6,8 @@ import PostList from './PostList'
 class ContentsPage extends Component {
 
     render() {
-	const { receivedPosts } = this.props
-	if (!receivedPosts) {
+	const { finishedLoadingPosts } = this.props
+	if (!finishedLoadingPosts) {
 	    return <div className="window-content">Loading...</div>
 	}
 	else {
