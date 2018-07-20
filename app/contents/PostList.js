@@ -8,7 +8,6 @@ import Graph from 'react-graph-vis'
 import { Tags, Title } from '../services/posts'
 
 class PostList extends Component {
-
     render() {
 	const { postPaths, posts } = this.props
 	const tagIndex = Tags.buildTagInvertedIndex(posts)
@@ -19,7 +18,8 @@ class PostList extends Component {
 	postPaths.forEach((path, index) => {
 	    postNodes.push({
 		id: `post:${path}`,
-		label: Title.findOrFallback(path, posts[path])
+		label: Title.findOrFallback(path, posts[path]),
+		group: 'posts',
 	    })
 	    postIndex[path] = index
 	})
@@ -31,8 +31,9 @@ class PostList extends Component {
 	    tagNodes.push({
 		id: `tag:${tag}`,
 		label: tag,
-		color: 'red',
-		shape: 'triangleDown'
+		group: 'tags',
+		mass: Math.pow(posts.length, 1.5),
+		size: 10
 	    })
 	    const nodeIndex = index + postNodes.length
 
@@ -47,6 +48,25 @@ class PostList extends Component {
 	const options = {
 	    edges: {
 		color: '#000000'
+	    },
+	    groups: {
+		posts: {
+		    shape: 'box'
+		},
+		tags: {
+		    color: 'red',
+		    shape: 'dot',
+		}
+	    },
+	    physics: {
+		enabled: true,
+	    	barnesHut: {
+	    	    avoidOverlap: 0.2,
+		    damping: 1.0,
+		    springLength: 50
+	    	},
+		maxVelocity: 20,
+	    	stabilization: {iterations: 10000}
 	    }
 	}
 	const events = {
