@@ -109,6 +109,10 @@ class PostList extends Component {
 		    this.getNetwork().selectNodes(
 			[node, ...neighbouringPostNodeIds]
 		    )
+		} else if (group === 'post') {
+		    const tags = Tags.findAll(id, posts[id])
+		    const tagNodeIds = tags.map(tag => `tag:${tag}`)
+		    this.getNetwork().selectNodes([node, ...tagNodeIds])
 		}
 	    }
 	}
