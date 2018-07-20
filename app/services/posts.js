@@ -29,6 +29,20 @@ export class Tags {
     }
 }
 
+export class Title {
+    static find(post) {
+	const metadata = Metadata.getMetadata(post)
+	const title =
+	      typeof metadata.title === 'undefined' ? null : metadata.title
+	return title
+    }
+
+    static findOrFallback(filePath, post) {
+	const title = this.find(post)
+	return title === null ? filePath : title
+    }
+}
+
 class MetadataParseError extends Error {
     constructor(field, ...params) {
 	super(...params)
@@ -71,7 +85,7 @@ export class Metadata {
     }
 
     static getMetadata(post) {
-	if (typeof post.metadata === 'undefined' || post.metadata === null) {
+	if (typeof post === 'undefined' || typeof post.metadata === 'undefined' || post.metadata === null) {
 	    return this.default()
 	} else {
 	    return post.metadata

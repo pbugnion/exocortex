@@ -1,5 +1,5 @@
 
-import { Tags, Metadata, MetadataParseError } from './posts'
+import { Tags, Metadata, MetadataParseError, Title } from './posts'
 
 describe('Tags.buildInvertedIndex', () => {
     test('single post', () => {
@@ -206,5 +206,36 @@ describe('Metadata.getMetadata', () => {
 	    tags: [],
 	    title: null
 	})
+    })
+})
+
+describe('Title.findOrFallback', () => {
+    test('title in metadata', () => {
+	const post = {
+	    metadata: {
+		title: 'some-title'
+	    }
+	}
+	expect(Title.findOrFallback('path', post)).toEqual('some-title')
+    })
+
+    test('no title in metadata', () => {
+	const post = {
+	    metadata: {
+		title: null
+	    }
+	}
+	expect(Title.findOrFallback('path', post)).toEqual('path')
+    })
+
+    test('missing title field', () => {
+	const post = {
+	    metadata: {}
+	}
+	expect(Title.findOrFallback('path', post)).toEqual('path')
+    })
+
+    test('no metadata', () => {
+	expect(Title.findOrFallback('path', {})).toEqual('path')
     })
 })
