@@ -61,6 +61,10 @@ class PostList extends Component {
 	
 	const options = {
 	    edges: {
+		color: {
+		    color: '#9ea2d0',
+		    highlight: '#4c5196'
+		},
 		arrows: {
 		    to: {
 			enabled: false
@@ -70,11 +74,24 @@ class PostList extends Component {
 	    groups: {
 		posts: {
 		    shape: 'box',
-		    color: 'rgb(192,207,253)',
+		    color: {
+			highlight: '#ffce93',
+			background: '#ffe293'
+		    },
+		    borderWidth: 0,
+		    labelHighlightBold: false,
 		},
 		tags: {
 		    shape: 'dot',
-		    color: 'rgb(253,180,153)',
+		    color: {
+			background: '#9ea2d0',
+			highlight: '#4c5196'
+		    },
+		    borderWidth: 0,
+		    labelHighlightBold: false,
+		    font: {
+			color: 'rgb(20, 20, 20)'
+		    }
 		}
 	    },
 	    physics: {
@@ -123,6 +140,7 @@ class PostList extends Component {
 	      options={options}
 	      events={events}
 	      ref={this.graphRef}
+	      style={{width: '100%', height: '100%', background: 'rgb(253,249,243)'}}
 	    />
 	)
     }
