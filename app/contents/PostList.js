@@ -108,7 +108,12 @@ class PostList extends Component {
 	    }
 	}
 	const events = {
-	    doubleClick: (event) => {
+	    click: event => {
+		if (event.nodes.length === 0) {
+		    this.getNetwork().selectNodes([])
+		}
+	    },
+	    doubleClick: event => {
 	    	const [node] = event.nodes
 	    	const [group, path] = node.split(':', 2)
 	    	if (group === 'post') {
