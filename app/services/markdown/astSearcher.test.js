@@ -4,21 +4,52 @@ import { MarkdownParser } from './parser'
 
 describe('AstSearcher.buildRelevantAst', () => {
 
-    test('single paragraph', () => {
-	const ast = MarkdownParser.parse('some text')
-	const result = AstSearcher.buildRelevantAst(ast, ['some'])
-	expect(result.relevance).toEqual(1)
-    })
+    function buildAstForText(text, terms) {
+	const ast = MarkdownParser.parse(text)
+	const result = AstSearcher.buildRelevantAst(ast, terms)
+	return result
+    }
+
+    function checkRelevanceForText(text, terms, expectedRelevance) {
+	const result = buildAstForText(text, terms)
+	expect(result.relevance).toEqual(expectedRelevance)
+    }
+
+    test('single paragraph', () => checkRelevanceForText('some text', ['some'], 1))
     
-    test('single paragraph, multiple search terms', () => {
-	const ast = MarkdownParser.parse('some text')
-	const result = AstSearcher.buildRelevantAst(ast, ['some', 'text'])
-	expect(result.relevance).toEqual(2)
+    test(
+	'single paragraph, multiple search terms',
+	() => checkRelevanceForText('some text', ['some', 'text'], 2)
+    )
+
+    test(
+	'single heading',
+	() => checkRelevanceForText('# some text', ['some'], 1)
+    )
+
+    test('heading and paragraph', () => {
+	const text =`
+# some text
+
+some paragraph
+`
+	checkRelevanceForText(text, ['some'], 2)
     })
 
-    test('single heading', () => {
-	const ast = MarkdownParser.parse('# some text')
-	const result = AstSearcher.buildRelevantAst(ast, ['some'])
-	expect(result.relevance).toEqual(1)
+    test('heading and paragraph, multiple search terms', () => {
+	const text =`
+# some text
+
+some paragraph
+`
+
+	checkRelevanceForText(text, ['some', 'text'], 3)
     })
+
+    test('emphasized text', () => checkRelevanceForText('*some* text', ['some'], 1))
+
+    test(
+	'emphasized heading',
+	() => checkRelevanceForText('# *some* text', ['some'], 1)
+    )
 })
