@@ -7,18 +7,16 @@ class ContentsBody extends Component {
     render() {
 	const { finishedLoadingPosts } = this.props
 	if (!finishedLoadingPosts) {
-	    return <div className="window-content">Loading...</div>
+	    return <div>Loading...</div>
 	}
 	else {
 	    const { postPaths, posts, navigateToPost } = this.props
 	    return (
-		<div className="window-content">
-		  <PostList
-		    postPaths={postPaths}
-		    posts={posts}
-		    navigateToPost={navigateToPost}
-		    />
-		</div>
+		<PostList
+		  postPaths={postPaths}
+		  posts={posts}
+		  navigateToPost={navigateToPost}
+		/>
 	    )
 	}
     }

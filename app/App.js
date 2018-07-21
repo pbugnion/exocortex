@@ -9,11 +9,7 @@ class App extends Component {
     }
 
     render() {
-	return (
-	    <div className='window'>
-	      <Routes />
-	    </div>
-	);
+	return <Routes />
     }
 }
 

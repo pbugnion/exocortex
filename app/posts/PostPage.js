@@ -8,7 +8,7 @@ class PostPage extends Component {
     render() {
 	const { postPath, isLoaded, post, onNavigateHome } = this.props
 	return (
-	    <div>
+	    <div className="window">
 	      <PostNavbar postPath={postPath} onNavigateHome={onNavigateHome} />
 	      <div className="window-content">
 		<PostView postPath={postPath} isLoaded={isLoaded} post={post} />
