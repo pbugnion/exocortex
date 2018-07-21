@@ -52,4 +52,9 @@ some paragraph
 	'emphasized heading',
 	() => checkRelevanceForText('# *some* text', ['some'], 4)
     )
+
+    test(
+	'strong text',
+	() => checkRelevanceForText('**some** text', ['some'], 2)
+    )
 })
