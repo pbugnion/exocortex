@@ -57,4 +57,13 @@ some paragraph
 	'strong text',
 	() => checkRelevanceForText('**some** text', ['some'], 2)
     )
+
+    test('text with no keywords', () => {
+	const result = buildAstForText('some text', ['no'])
+	expect(result).toBeNull()
+    })
+
+    test('multiple words in search term', () => {
+	checkRelevanceForText('some text', ['some text'], 1)
+    })
 })
