@@ -28,7 +28,7 @@ describe('AstSearcher.buildRelevantAst', () => {
     )
 
     test('heading and paragraph', () => {
-	const text =`
+	const text = `
 # some text
 
 some paragraph
@@ -37,7 +37,7 @@ some paragraph
     })
 
     test('heading and paragraph, multiple search terms', () => {
-	const text =`
+	const text = `
 # some text
 
 some paragraph
