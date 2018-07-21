@@ -1,12 +1,20 @@
 
+const nodeWeights = {
+    heading: 2,
+    emphasis: 2,
+    strong: 2
+}
+
 export class AstSearcher {
     static buildRelevantAst(ast, terms) {
 	return this._toRelevantNode(ast, terms)
     }
 
     static _toRelevantNode(node, terms) {
+	const { type } = node
+	const weight = nodeWeights[type] || 1
 	if (this._isLeafNode(node)) {
-	    const relevance = this._calculateLeafRelevance(node, terms)
+	    const relevance = weight * this._calculateLeafRelevance(node, terms)
 	    if (relevance > 0.0) {
 		return this._wrapRelevantLeafNode(node, relevance)
 	    }
@@ -16,15 +24,21 @@ export class AstSearcher {
 	} else {
 	    const { children } = node
 	    const relevantChildren = []
-	    let totalRelevance = 0.0
+	    let totalUnweightedRelevance = 0.0
 	    children.forEach(child => {
 		const relevantChildMaybe = this._toRelevantNode(child, terms)
 		if (relevantChildMaybe !== null) {
 		    relevantChildren.push(relevantChildMaybe)
-		    totalRelevance += relevantChildMaybe.relevance
+		    totalUnweightedRelevance += relevantChildMaybe.relevance
 		}
 	    })
-	    return this._wrapRelevantBranchNode(node, totalRelevance, relevantChildren)
+	    if (totalUnweightedRelevance > 0.0) {
+		const totalRelevance = totalUnweightedRelevance * weight
+		return this._wrapRelevantBranchNode(
+		    node, totalRelevance, relevantChildren)
+	    } else {
+		return null
+	    }
 	}
     }
 

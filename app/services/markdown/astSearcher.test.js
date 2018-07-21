@@ -24,7 +24,7 @@ describe('AstSearcher.buildRelevantAst', () => {
 
     test(
 	'single heading',
-	() => checkRelevanceForText('# some text', ['some'], 1)
+	() => checkRelevanceForText('# some text', ['some'], 2)
     )
 
     test('heading and paragraph', () => {
@@ -33,7 +33,7 @@ describe('AstSearcher.buildRelevantAst', () => {
 
 some paragraph
 `
-	checkRelevanceForText(text, ['some'], 2)
+	checkRelevanceForText(text, ['some'], 3)
     })
 
     test('heading and paragraph, multiple search terms', () => {
@@ -43,13 +43,13 @@ some paragraph
 some paragraph
 `
 
-	checkRelevanceForText(text, ['some', 'text'], 3)
+	checkRelevanceForText(text, ['some', 'text'], 5)
     })
 
-    test('emphasized text', () => checkRelevanceForText('*some* text', ['some'], 1))
+    test('emphasized text', () => checkRelevanceForText('*some* text', ['some'], 2))
 
     test(
 	'emphasized heading',
-	() => checkRelevanceForText('# *some* text', ['some'], 1)
+	() => checkRelevanceForText('# *some* text', ['some'], 4)
     )
 })
