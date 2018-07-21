@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 
-import { MarkdownParser } from './services/markdown'
+import { MarkdownParser } from './services/markdown/parser'
 import { Metadata } from './services/posts'
 
 export const APP_START = 'APP_START'
