@@ -5,6 +5,8 @@ const nodeWeights = {
     strong: 2
 }
 
+const excludedNodes = ['yaml', 'thematicBreak', 'image']
+
 export class AstSearcher {
     static buildRelevantAst(ast, terms) {
 	return this._toRelevantNode(ast, terms)
@@ -12,6 +14,9 @@ export class AstSearcher {
 
     static _toRelevantNode(node, terms) {
 	const { type } = node
+	if (excludedNodes.includes(type)) {
+	    return null
+	}
 	const weight = nodeWeights[type] || 1
 	if (this._isLeafNode(node)) {
 	    const relevance = weight * this._calculateLeafRelevance(node, terms)
@@ -23,6 +28,10 @@ export class AstSearcher {
 	    }
 	} else {
 	    const { children } = node
+	    if (typeof children === 'undefined') {
+		console.warn('Unexpected node with no children')
+		return null
+	    }
 	    const relevantChildren = []
 	    let totalUnweightedRelevance = 0.0
 	    children.forEach(child => {
@@ -44,12 +53,12 @@ export class AstSearcher {
 
     static _isLeafNode(node) {
 	const { type } = node
-	return ['text', 'code'].includes(type)
+	return ['text', 'code', 'inlineCode'].includes(type)
     }
 
     static _calculateLeafRelevance(leaf, terms) {
 	const { type } = leaf
-	if (type === 'text') {
+	if (type === 'text' || type === 'inlineCode') {
 	    const { value } = leaf
 	    return terms.reduce(
 		(acc, term) => acc + (value.includes(term) ? 1.0 : 0.0),

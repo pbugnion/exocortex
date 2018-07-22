@@ -2,6 +2,9 @@
 import { AstSearcher } from './astSearcher'
 import { MarkdownParser } from './parser'
 
+import fs from 'fs'
+import path from 'path'
+
 describe('AstSearcher.buildRelevantAst', () => {
 
     function buildAstForText(text, terms) {
@@ -65,5 +68,12 @@ some paragraph
 
     test('multiple words in search term', () => {
 	checkRelevanceForText('some text', ['some text'], 1)
+    })
+
+    test('sample post', () => {
+        const postPath = path.join(__dirname, '../../../__test__/simple-post.md')
+	const content = fs.readFileSync(postPath, { encoding: 'utf-8' })
+	const result = buildAstForText(content, ['one'])
+	expect(result.relevance).toEqual(4)
     })
 })
