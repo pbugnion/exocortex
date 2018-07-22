@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 
-import PostList from './PostList'
+import PostGraph from './PostGraph'
 
 class ContentsBody extends Component {
     render() {
@@ -12,7 +12,7 @@ class ContentsBody extends Component {
 	else {
 	    const { postPaths, posts, navigateToPost } = this.props
 	    return (
-		<PostList
+		<PostGraph
 		  postPaths={postPaths}
 		  posts={posts}
 		  navigateToPost={navigateToPost}

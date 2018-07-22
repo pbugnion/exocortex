@@ -7,7 +7,7 @@ import Graph from 'react-graph-vis'
 
 import { Tags, Title } from '../services/posts'
 
-class PostList extends Component {
+class PostGraph extends Component {
     constructor(props) {
 	super(props)
 	this.graphRef = React.createRef()
@@ -151,4 +151,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default PostGraph
