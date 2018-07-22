@@ -33,6 +33,8 @@ describe('AstSearcher.buildRelevantAst', () => {
     test('single paragraph', () => checkRelevanceForText('some text', ['some'], 1))
 
     test('ignore case', () => checkRelevanceForText('SOmE text', ['sOme'], 1))
+
+    test('multiple matches', () => checkRelevanceForText('some some', ['some'], 2))
     
     test(
 	'single paragraph, multiple search terms',

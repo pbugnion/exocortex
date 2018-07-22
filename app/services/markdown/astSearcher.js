@@ -63,7 +63,7 @@ export class AstSearcher {
 	    const { value } = leaf
 	    const lowercaseValue = value.toLowerCase()
 	    return terms.reduce(
-		(acc, term) => acc + (lowercaseValue.includes(term) ? 1.0 : 0.0),
+		(acc, term) => acc + this._occurrences(lowercaseValue, term, false),
 		0.0
 	    )
 	} else {
@@ -85,5 +85,23 @@ export class AstSearcher {
 	    relevance: relevance,
 	    children: relevantChildren
 	}
+    }
+
+    // copied from https://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string
+    static _occurrences(string, subString, allowOverlapping) {
+	if (subString.length <= 0) return (string.length + 1);
+
+	let n = 0
+	let pos = 0
+	const step = allowOverlapping ? 1 : subString.length;
+
+	while (true) {
+	    pos = string.indexOf(subString, pos);
+	    if (pos >= 0) {
+		++n;
+		pos += step;
+	    } else break;
+	}
+	return n
     }
 }
