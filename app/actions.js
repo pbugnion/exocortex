@@ -14,6 +14,8 @@ export const RECEIVED_POST_AST = 'RECEIVED_POST_AST'
 export const RECEIVED_POST_METADATA = 'RECEIVED_POST_METADATA'
 export const FINISHED_LOADING_POSTS = 'FINISHED_LOADING_POSTS'
 
+export const SEARCH_POSTS_FULL_TEXT = 'SEARCH_POSTS_FULL_TEXT'
+
 function* watchAppStartup() {
     yield takeEvery(APP_START, getPostList)
 }
@@ -40,6 +42,10 @@ function* getPostList() {
 	}
     }
     yield put({ type: FINISHED_LOADING_POSTS })
+}
+
+export function searchPostsFullText(searchQuery) {
+    return { type: SEARCH_POSTS_FULL_TEXT, searchQuery }
 }
 
 export default function* appSagas() {

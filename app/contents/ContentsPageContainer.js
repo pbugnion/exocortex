@@ -4,6 +4,8 @@ import { push } from 'connected-react-router'
 
 import ContentsPage from './ContentsPage'
 
+import { searchPostsFullText } from '../actions'
+
 const mapStateToProps = state => {
     return {...state.posts}
 }
@@ -14,7 +16,7 @@ const mapDispatchToProps = dispatch => {
 	navigateToPost: postPath => dispatch(push(`/post?path=${postPath}`)),
 	searchCallbacks: {
 	    cleared: () => console.log('cleared'),
-	    fullText: searchValue => console.log(searchValue)
+	    fullText: searchQuery => dispatch(searchPostsFullText(searchQuery))
 	}
     }
 }

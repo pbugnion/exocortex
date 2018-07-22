@@ -9,11 +9,16 @@ import {
     FINISHED_LOADING_POSTS
 } from '../actions'
 
+import { AstSearcher } from '../services/markdown/astSearcher'
+
 const initialPostState = {
     receivedPosts: false,
     postPaths: null,
     posts: {},
-    finishedLoadingPosts: false
+    finishedLoadingPosts: false,
+    search: {
+	type: 'noSearch'
+    }
 }
 
 function posts(state = initialPostState, action) {
@@ -44,6 +49,36 @@ function posts(state = initialPostState, action) {
     }
     case FINISHED_LOADING_POSTS:
 	return { ...state, finishedLoadingPosts: true }
+    case 'SEARCH_POSTS_FULL_TEXT':
+	const { searchQuery } = action
+	const relevantPosts = []
+	state.postPaths.forEach(postPath => {
+	    const post = state.posts[postPath]
+	    if (typeof post !== 'undefined') {
+		const searchResultForPost = AstSearcher.buildRelevantAst(
+		    post.ast, [searchQuery])
+		const relevance = (
+		    searchResultForPost === null ?
+			0.0 :
+			searchResultForPost.relevance
+		)
+		if (relevance !== 0.0) {
+		    relevantPosts.push({
+			postPath,
+			relevance
+		    })
+		}
+	    }
+	})
+	const results = relevantPosts.sort(({ relevance }) => relevance).reverse()
+	return {
+	    ...state,
+	    search: {
+		type: 'fullText',
+		terms: [searchQuery],
+		results
+	    }
+	}
     default:
 	return state
     }
