@@ -23,8 +23,9 @@ class ContentsPage extends Component {
 		  finishedLoadingPosts={finishedLoadingPosts}
 		  postPaths={postPaths}
 		  posts={posts}
-		  searchCallbacks={searchCallbacks}
 		  selection={selection}
+		  navigateToPost={navigateToPost}
+		  searchCallbacks={searchCallbacks}
 		  />
 	       </div>
 	    </div>
