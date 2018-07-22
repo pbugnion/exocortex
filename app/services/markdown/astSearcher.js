@@ -5,7 +5,7 @@ const nodeWeights = {
     strong: 2
 }
 
-const excludedNodes = ['yaml', 'thematicBreak', 'image']
+const excludedNodes = ['yaml', 'thematicBreak', 'image', 'imageReference', 'html']
 
 export class AstSearcher {
     static buildRelevantAst(ast, terms) {
@@ -30,7 +30,7 @@ export class AstSearcher {
 	} else {
 	    const { children } = node
 	    if (typeof children === 'undefined') {
-		console.warn('Unexpected node with no children')
+		console.warn(`Unexpected node with no children: ${node.type}`)
 		return null
 	    }
 	    const relevantChildren = []
