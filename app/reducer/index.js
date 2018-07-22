@@ -6,7 +6,9 @@ import {
     RECEIVED_POST_CONTENTS,
     RECEIVED_POST_AST,
     RECEIVED_POST_METADATA,
-    FINISHED_LOADING_POSTS
+    FINISHED_LOADING_POSTS,
+
+    SEARCH_POSTS_FULL_TEXT
 } from '../actions'
 
 import { AstSearcher } from '../services/markdown/astSearcher'
@@ -49,7 +51,7 @@ function posts(state = initialPostState, action) {
     }
     case FINISHED_LOADING_POSTS:
 	return { ...state, finishedLoadingPosts: true }
-    case 'SEARCH_POSTS_FULL_TEXT':
+    case SEARCH_POSTS_FULL_TEXT:
 	const { searchQuery } = action
 	const relevantPosts = []
 	state.postPaths.forEach(postPath => {
