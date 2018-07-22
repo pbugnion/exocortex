@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 
 import PostGraph from './PostGraph'
+import PostSearch from './PostSearch'
 
 class ContentsBody extends Component {
     render() {
@@ -12,11 +13,22 @@ class ContentsBody extends Component {
 	else {
 	    const { postPaths, posts, navigateToPost } = this.props
 	    return (
-		<PostGraph
-		  postPaths={postPaths}
-		  posts={posts}
-		  navigateToPost={navigateToPost}
-		/>
+		<div className="pane-group">
+		  <div className="pane">
+		    <PostGraph
+		      postPaths={postPaths}
+		      posts={posts}
+		      navigateToPost={navigateToPost}
+		      />
+		  </div>
+		  <div className="pane-one-fourth sidebar">
+		    <PostSearch
+		      postPaths={postPaths}
+		      posts={posts}
+		      navigateToPost={navigateToPost}
+		    />
+		  </div>
+		</div>
 	    )
 	}
     }
