@@ -9,7 +9,8 @@ const excludedNodes = ['yaml', 'thematicBreak', 'image']
 
 export class AstSearcher {
     static buildRelevantAst(ast, terms) {
-	return this._toRelevantNode(ast, terms)
+	const lowercaseTerms = terms.map(term => term.toLowerCase())
+	return this._toRelevantNode(ast, lowercaseTerms)
     }
 
     static _toRelevantNode(node, terms) {
@@ -60,8 +61,9 @@ export class AstSearcher {
 	const { type } = leaf
 	if (type === 'text' || type === 'inlineCode') {
 	    const { value } = leaf
+	    const lowercaseValue = value.toLowerCase()
 	    return terms.reduce(
-		(acc, term) => acc + (value.includes(term) ? 1.0 : 0.0),
+		(acc, term) => acc + (lowercaseValue.includes(term) ? 1.0 : 0.0),
 		0.0
 	    )
 	} else {
