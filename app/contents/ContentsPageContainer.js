@@ -7,7 +7,28 @@ import ContentsPage from './ContentsPage'
 import { searchPostsFullText } from '../actions'
 
 const mapStateToProps = state => {
-    return {...state.posts}
+    const {
+	finishedLoadingPosts,
+	postPaths,
+	posts,
+	search
+    } = state.posts
+
+    let selection = {
+	anySelected: false
+    }
+    if (search.type === 'fullText') {
+	selection = {
+	    anySelected: true,
+	    selectedPosts: search.results.map(({ postPath }) => postPath)
+	}
+    }
+    return {
+	finishedLoadingPosts,
+	postPaths,
+	posts,
+	selection
+    }
 }
 
 const mapDispatchToProps = dispatch => {

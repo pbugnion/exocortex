@@ -20,8 +20,14 @@ class PostSearch extends Component {
     }
 
     render() {
-	const { postPaths, posts, searchForPost } = this.props
-	const postItems = postPaths.map(path => {
+	const { postPaths, posts, selection, searchForPost } = this.props
+	let postPathsShown = [];
+	if (selection.anySelected) {
+	    postPathsShown = selection.selectedPosts
+	} else {
+	    postPathsShown = postPaths
+	}
+	const postItems = postPathsShown.map(path => {
 	    const title = Title.findOrFallback(path, posts[path])
 	    return (
 		<li className="list-group-item" key={path}>
