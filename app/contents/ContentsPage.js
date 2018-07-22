@@ -10,6 +10,7 @@ class ContentsPage extends Component {
 	    finishedLoadingPosts,
 	    postPaths,
 	    posts,
+	    searchCallbacks,
 	    navigateToPost
 	} = this.props
 
@@ -21,7 +22,7 @@ class ContentsPage extends Component {
 		  finishedLoadingPosts={finishedLoadingPosts}
 		  postPaths={postPaths}
 		  posts={posts}
-		  navigateToPost={navigateToPost}
+		  searchCallbacks={searchCallbacks}
 		  />
 	       </div>
 	    </div>

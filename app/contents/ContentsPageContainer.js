@@ -11,7 +11,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 	// TODO use library to stringify query
-	navigateToPost: (postPath) => dispatch(push(`/post?path=${postPath}`))
+	navigateToPost: postPath => dispatch(push(`/post?path=${postPath}`)),
+	searchCallbacks: {
+	    cleared: () => console.log('cleared'),
+	    fullText: searchValue => console.log(searchValue)
+	}
     }
 }
 

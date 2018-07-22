@@ -11,7 +11,7 @@ class ContentsBody extends Component {
 	    return <div>Loading...</div>
 	}
 	else {
-	    const { postPaths, posts, navigateToPost } = this.props
+	    const { postPaths, posts, searchCallbacks, navigateToPost } = this.props
 	    return (
 		<div className="pane-group">
 		  <div className="pane">
@@ -25,6 +25,7 @@ class ContentsBody extends Component {
 		    <PostSearch
 		      postPaths={postPaths}
 		      posts={posts}
+		      searchCallbacks={searchCallbacks}
 		      navigateToPost={navigateToPost}
 		    />
 		  </div>
