@@ -13,8 +13,20 @@ describe('AstSearcher.buildRelevantAst', () => {
 	return result
     }
 
+    function buildAstForFile(pathInResources, terms) {
+	const postPath = path.join(__dirname, '../../../__test__/', pathInResources)
+	const content = fs.readFileSync(postPath, { encoding: 'utf-8' })
+	const result = buildAstForText(content, terms)
+	return result
+    }
+
     function checkRelevanceForText(text, terms, expectedRelevance) {
 	const result = buildAstForText(text, terms)
+	expect(result.relevance).toEqual(expectedRelevance)
+    }
+
+    function checkRelevanceForFile(pathInResources, terms, expectedRelevance) {
+	const result = buildAstForFile(pathInResources, terms)
 	expect(result.relevance).toEqual(expectedRelevance)
     }
 
@@ -72,10 +84,10 @@ some paragraph
 	checkRelevanceForText('some text', ['some text'], 1)
     })
 
-    test('sample post', () => {
-        const postPath = path.join(__dirname, '../../../__test__/simple-post.md')
-	const content = fs.readFileSync(postPath, { encoding: 'utf-8' })
-	const result = buildAstForText(content, ['one'])
-	expect(result.relevance).toEqual(4)
-    })
+    test('sample post', () => checkRelevanceForFile('simple-post.md', ['one'], 4))
+
+    test(
+	'sample post, varied case',
+	() => checkRelevanceForFile('simple-post.md', ['paragraph'], 3)
+    )
 })
