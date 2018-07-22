@@ -9,7 +9,7 @@ class PostSearch extends Component {
 	const postItems = postPaths.map(path => {
 	    const title = Title.findOrFallback(path, posts[path])
 	    return (
-		<li className="list-group-item">
+		<li className="list-group-item" key={path}>
 		  <p>{title}</p>
 		</li>
 	    )
