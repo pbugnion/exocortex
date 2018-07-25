@@ -1,6 +1,6 @@
 
 import { AstSearcher } from './astSearcher'
-import { MarkdownParser } from './parser'
+import { MarkdownParser } from '../markdown/parser'
 
 import fs from 'fs'
 import path from 'path'

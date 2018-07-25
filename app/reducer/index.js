@@ -11,7 +11,7 @@ import {
     SEARCH_POSTS_FULL_TEXT
 } from '../actions'
 
-import { AstSearcher } from '../services/markdown/astSearcher'
+import { AstSearcher } from '../services/search/astSearcher'
 
 const initialPostState = {
     receivedPosts: false,
