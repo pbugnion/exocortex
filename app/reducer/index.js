@@ -11,7 +11,8 @@ import {
     SEARCH_POSTS_FULL_TEXT
 } from '../actions'
 
-import { AstSearcher } from '../services/search/astSearcher'
+import { PostSearcher } from '../services/search/postSearcher'
+import { SearchQuery } from '../services/search/searchQuery'
 
 const initialPostState = {
     receivedPosts: false,
@@ -53,12 +54,12 @@ function posts(state = initialPostState, action) {
 	return { ...state, finishedLoadingPosts: true }
     case SEARCH_POSTS_FULL_TEXT:
 	const { searchQuery } = action
+	const terms = SearchQuery.splitIntoTerms(searchQuery)
 	const relevantPosts = []
 	state.postPaths.forEach(postPath => {
 	    const post = state.posts[postPath]
 	    if (typeof post !== 'undefined') {
-		const searchResultForPost = AstSearcher.buildRelevantAst(
-		    post.ast, [searchQuery])
+		const searchResultForPost = PostSearcher.searchPost(post, terms)
 		const relevance = (
 		    searchResultForPost === null ?
 			0.0 :
@@ -77,7 +78,7 @@ function posts(state = initialPostState, action) {
 	    ...state,
 	    search: {
 		type: 'fullText',
-		terms: [searchQuery],
+		terms,
 		results
 	    }
 	}
