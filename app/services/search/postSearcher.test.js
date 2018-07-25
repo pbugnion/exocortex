@@ -1,7 +1,4 @@
 
-import { AstSearcher } from './astSearcher'
-import { PostSearcher } from './postSearcher'
-
 describe('PostSearcher.searchPost', () => {
     let AstSearcher
     let PostSearcher
@@ -9,6 +6,10 @@ describe('PostSearcher.searchPost', () => {
     beforeEach(() => {
 	PostSearcher = require('./postSearcher').PostSearcher
 	AstSearcher = require('./astSearcher').AstSearcher
+    })
+
+    afterEach(() => {
+	AstSearcher.buildRelevantAst.mockRestore()
     })
 
     it('single term in AST', () => {

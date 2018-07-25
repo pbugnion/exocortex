@@ -6,8 +6,9 @@ export class PostSearcher {
 	let relevance = 1.0
 	terms.forEach(term => {
 	    if (relevance > 0.0) {
-		const termRelevance = AstSearcher.buildRelevantAst(
-		    post.ast, term).relevance
+		const termAst = AstSearcher.buildRelevantAst(
+		    post.ast, term)
+		const termRelevance = termAst === null ? 0.0 : termAst.relevance
 		relevance *= termRelevance
 	    }
 	})
