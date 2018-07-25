@@ -8,19 +8,19 @@ const nodeWeights = {
 const excludedNodes = ['yaml', 'thematicBreak', 'image', 'imageReference', 'html']
 
 export class AstSearcher {
-    static buildRelevantAst(ast, terms) {
-	const lowercaseTerms = terms.map(term => term.toLowerCase())
-	return this._toRelevantNode(ast, lowercaseTerms)
+    static buildRelevantAst(ast, term) {
+	const lowercaseTerm = term.toLowerCase()
+	return this._toRelevantNode(ast, lowercaseTerm)
     }
 
-    static _toRelevantNode(node, terms) {
+    static _toRelevantNode(node, term) {
 	const { type } = node
 	if (excludedNodes.includes(type)) {
 	    return null
 	}
 	const weight = nodeWeights[type] || 1
 	if (this._isLeafNode(node)) {
-	    const relevance = weight * this._calculateLeafRelevance(node, terms)
+	    const relevance = weight * this._calculateLeafRelevance(node, term)
 	    if (relevance > 0.0) {
 		return this._wrapRelevantLeafNode(node, relevance)
 	    }
@@ -36,7 +36,7 @@ export class AstSearcher {
 	    const relevantChildren = []
 	    let totalUnweightedRelevance = 0.0
 	    children.forEach(child => {
-		const relevantChildMaybe = this._toRelevantNode(child, terms)
+		const relevantChildMaybe = this._toRelevantNode(child, term)
 		if (relevantChildMaybe !== null) {
 		    relevantChildren.push(relevantChildMaybe)
 		    totalUnweightedRelevance += relevantChildMaybe.relevance
@@ -57,15 +57,12 @@ export class AstSearcher {
 	return ['text', 'code', 'inlineCode'].includes(type)
     }
 
-    static _calculateLeafRelevance(leaf, terms) {
+    static _calculateLeafRelevance(leaf, term) {
 	const { type } = leaf
 	if (type === 'text' || type === 'inlineCode') {
 	    const { value } = leaf
 	    const lowercaseValue = value.toLowerCase()
-	    return terms.reduce(
-		(acc, term) => acc + this._occurrences(lowercaseValue, term, false),
-		0.0
-	    )
+	    return this._occurrences(lowercaseValue, term, false)
 	} else {
 	    return 0.0
 	}
