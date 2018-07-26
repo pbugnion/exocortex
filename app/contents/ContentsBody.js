@@ -25,6 +25,7 @@ class ContentsBody extends Component {
 		      postPaths={postPaths}
 		      posts={posts}
 		      navigateToPost={navigateToPost}
+		      selection={selection}
 		      />
 		  </div>
 		  <div className="pane-one-fourth sidebar">

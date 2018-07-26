@@ -17,6 +17,24 @@ class PostGraph extends Component {
 	return this.graphRef.current.Network
     }
 
+    setSelectedPosts(selection) {
+	const { anySelected, selectedPosts } = selection
+	if (!anySelected) {
+	    this.getNetwork().selectNodes([])
+	} else {
+	    const selectedPostNodeIds = selectedPosts.map(post => `post:${post}`)
+	    this.getNetwork().selectNodes(selectedPostNodeIds)
+	}
+    }
+
+    componentDidMount() {
+	this.setSelectedPosts(this.props.selection)
+    }
+
+    componentDidUpdate() {
+	this.setSelectedPosts(this.props.selection)
+    }
+
     render() {
 	const { postPaths, posts } = this.props
 	const tagIndex = Tags.buildTagInvertedIndex(posts)
