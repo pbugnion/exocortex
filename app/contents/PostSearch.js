@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 
 import { Tags, Title } from '../services/posts'
 
+import PostSearchItem from './PostSearchItem'
+
 class PostSearch extends Component {
     constructor(props) {
 	super(props)
@@ -28,12 +30,7 @@ class PostSearch extends Component {
 	    postPathsShown = postPaths
 	}
 	const postItems = postPathsShown.map(path => {
-	    const title = Title.findOrFallback(path, posts[path])
-	    return (
-		<li className="list-group-item" key={path}>
-		  <p>{title}</p>
-		</li>
-	    )
+	    return <PostSearchItem path={path} post={posts[path]} key={path}/>
 	})
 	return (
 	    <ul className="list-group">
