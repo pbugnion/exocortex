@@ -22,7 +22,7 @@ class PostSearch extends Component {
     }
 
     render() {
-	const { postPaths, posts, selection, searchForPost } = this.props
+	const { postPaths, posts, selection, navigateToPost } = this.props
 	let postPathsShown = [];
 	if (selection.anySelected) {
 	    postPathsShown = selection.selectedPosts
@@ -30,7 +30,14 @@ class PostSearch extends Component {
 	    postPathsShown = postPaths
 	}
 	const postItems = postPathsShown.map(path => {
-	    return <PostSearchItem path={path} post={posts[path]} key={path}/>
+	    return (
+		<PostSearchItem
+		  path={path}
+		  post={posts[path]}
+		  key={path}
+		  navigateToPost={navigateToPost}
+		/>
+	    )
 	})
 	return (
 	    <ul className="list-group">
