@@ -80,14 +80,12 @@ function posts(state = initialPostState, action) {
 	return { ...state, finishedLoadingPosts: true }
     case SEARCH_POSTS_FULL_TEXT: {
 	const { searchQuery } = action
-	const terms = SearchQuery.splitIntoTerms(searchQuery)
-	const relevantPosts = []
-	const results = getSearchResults(terms, state.posts)
+	const results = getSearchResults(searchQuery, state.posts)
 	return {
 	    ...state,
 	    search: {
 		type: 'fullText',
-		terms,
+		terms: searchQuery,
 		results
 	    }
 	}

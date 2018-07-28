@@ -4,29 +4,16 @@ import React, { Component } from 'react'
 import { Tags, Title } from '../services/posts'
 
 import PostSearchItem from './PostSearchItem'
+import PostSearchInput from './PostSearchInput'
 
 class PostSearch extends Component {
-    constructor(props) {
-	super(props)
-	this.handleChange = this.handleChange.bind(this)
-    }
-
-    handleChange(event) {
-	const searchValue = event.target.value
-	const { searchCallbacks } = this.props
-	if (searchValue === '') {
-	    searchCallbacks.cleared()
-	} else {
-	    searchCallbacks.fullText(searchValue)
-	}
-    }
-
     render() {
 	const {
 	    postPaths,
 	    posts,
 	    searchTerms,
 	    selection,
+	    searchCallbacks,
 	    navigateToPost
 	} = this.props
 	let postPathsShown = [];
@@ -35,7 +22,6 @@ class PostSearch extends Component {
 	} else {
 	    postPathsShown = postPaths
 	}
-	const searchInputText = searchTerms.join(' ')
 	const postItems = postPathsShown.map(path => {
 	    return (
 		<PostSearchItem
@@ -48,15 +34,11 @@ class PostSearch extends Component {
 	})
 	return (
 	    <ul className="list-group">
-	      <li className="list-group-header">
-		<input
-		  className="form-control"
-		  type="text"
-		  placeholder="Search for a post"
-		  value={searchInputText}
-		  onChange={this.handleChange}
-		/>
-	      </li>
+	      <PostSearchInput
+		searchTerms={searchTerms}
+		searchCallbacks={searchCallbacks}
+		key={searchTerms}
+	      />
 	      {postItems}
 	    </ul>
 	)
