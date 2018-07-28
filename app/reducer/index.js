@@ -8,7 +8,8 @@ import {
     RECEIVED_POST_METADATA,
     FINISHED_LOADING_POSTS,
 
-    SEARCH_POSTS_FULL_TEXT
+    SEARCH_POSTS_FULL_TEXT,
+    CLEAR_SEARCH
 } from '../actions'
 
 import { PostSearcher } from '../services/search/postSearcher'
@@ -80,6 +81,13 @@ function posts(state = initialPostState, action) {
 		type: 'fullText',
 		terms,
 		results
+	    }
+	}
+    case CLEAR_SEARCH:
+	return {
+	    ...state,
+	    search: {
+		type: 'noSearch'
 	    }
 	}
     default:
