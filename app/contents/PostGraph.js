@@ -142,13 +142,7 @@ class PostGraph extends Component {
 		const [node] = event.nodes
 		const [group, id] = node.split(':', 2)
 		if (group === 'tag') {
-		    const neighbouringPosts = tagIndex[id]
-		    const neighbouringPostNodeIds = neighbouringPosts.map(
-			post => `post:${post}`
-		    )
-		    this.getNetwork().selectNodes(
-			[node, ...neighbouringPostNodeIds]
-		    )
+		    this.props.searchCallbacks.appendToSearch(id)
 		} else if (group === 'post') {
 		    const tags = Tags.findAll(id, posts[id])
 		    const tagNodeIds = tags.map(tag => `tag:${tag}`)

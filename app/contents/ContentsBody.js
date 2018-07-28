@@ -24,6 +24,7 @@ class ContentsBody extends Component {
 		    <PostGraph
 		      postPaths={postPaths}
 		      posts={posts}
+		      searchCallbacks={searchCallbacks}
 		      navigateToPost={navigateToPost}
 		      selection={selection}
 		      />

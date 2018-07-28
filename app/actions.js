@@ -15,6 +15,7 @@ export const RECEIVED_POST_METADATA = 'RECEIVED_POST_METADATA'
 export const FINISHED_LOADING_POSTS = 'FINISHED_LOADING_POSTS'
 
 export const SEARCH_POSTS_FULL_TEXT = 'SEARCH_POSTS_FULL_TEXT'
+export const APPEND_TO_SEARCH = 'APPEND_TO_SEARCH'
 export const CLEAR_SEARCH = 'CLEAR_SEARCH'
 
 function* watchAppStartup() {
@@ -51,6 +52,10 @@ export function searchPostsFullText(searchQuery) {
 
 export function clearSearch() {
     return { type: CLEAR_SEARCH }
+}
+
+export function appendToSearch(searchTerm) {
+    return { type: APPEND_TO_SEARCH, searchTerm }
 }
 
 export default function* appSagas() {
