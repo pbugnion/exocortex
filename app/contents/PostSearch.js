@@ -22,13 +22,20 @@ class PostSearch extends Component {
     }
 
     render() {
-	const { postPaths, posts, selection, navigateToPost } = this.props
+	const {
+	    postPaths,
+	    posts,
+	    searchTerms,
+	    selection,
+	    navigateToPost
+	} = this.props
 	let postPathsShown = [];
 	if (selection.anySelected) {
 	    postPathsShown = selection.selectedPosts
 	} else {
 	    postPathsShown = postPaths
 	}
+	const searchInputText = searchTerms.join(' ')
 	const postItems = postPathsShown.map(path => {
 	    return (
 		<PostSearchItem
@@ -46,6 +53,7 @@ class PostSearch extends Component {
 		  className="form-control"
 		  type="text"
 		  placeholder="Search for a post"
+		  value={searchInputText}
 		  onChange={this.handleChange}
 		/>
 	      </li>

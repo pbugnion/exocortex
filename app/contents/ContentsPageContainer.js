@@ -17,17 +17,20 @@ const mapStateToProps = state => {
     let selection = {
 	anySelected: false
     }
+    let searchTerms = []
     if (search.type === 'fullText') {
 	selection = {
 	    anySelected: true,
 	    selectedPosts: search.results.map(({ postPath }) => postPath)
 	}
+	searchTerms = search.terms
     }
     return {
 	finishedLoadingPosts,
 	postPaths,
 	posts,
-	selection
+	selection,
+	searchTerms
     }
 }
 

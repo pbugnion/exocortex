@@ -11,6 +11,7 @@ class ContentsPage extends Component {
 	    postPaths,
 	    posts,
 	    selection,
+	    searchTerms,
 	    searchCallbacks,
 	    navigateToPost
 	} = this.props
@@ -24,6 +25,7 @@ class ContentsPage extends Component {
 		  postPaths={postPaths}
 		  posts={posts}
 		  selection={selection}
+		  searchTerms={searchTerms}
 		  navigateToPost={navigateToPost}
 		  searchCallbacks={searchCallbacks}
 		  />
