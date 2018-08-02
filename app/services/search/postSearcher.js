@@ -1,5 +1,6 @@
 
 import { AstSearcher } from './astSearcher'
+import { TagsSearcher } from './tagsSearcher'
 
 export class PostSearcher {
     static searchPost(post, terms) {
@@ -9,7 +10,8 @@ export class PostSearcher {
 		const termAst = AstSearcher.buildRelevantAst(
 		    post.ast, term)
 		const termRelevance = termAst === null ? 0.0 : termAst.relevance
-		relevance *= termRelevance
+		const tagsRelevance = TagsSearcher.searchTags(post, term)
+		relevance *= (termRelevance + 5*tagsRelevance)
 	    }
 	})
 	return { relevance }
