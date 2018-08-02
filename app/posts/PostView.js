@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 
-import PostAst from './PostAst'
+import PostContent from './PostContent'
 
 class PostView extends Component {
     render() {
@@ -9,7 +9,7 @@ class PostView extends Component {
 	if (!isLoaded) {
 	    return <div>Loading post...</div>
 	} else {
-	    return <PostAst ast={post.ast} />
+	    return <PostContent post={post} />
 	}
     }
 }
