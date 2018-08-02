@@ -1,4 +1,6 @@
 
+import path from 'path'
+
 export class Tags {
     static findAll(post) {
 	const metadata = Metadata.getMetadata(post)
@@ -38,8 +40,12 @@ export class Title {
     }
 
     static findOrFallback(filePath, post) {
-	const title = this.find(post)
-	return title === null ? filePath : title
+	let title = this.find(post)
+	if (title === null) {
+	    const { name } = path.parse(filePath)
+	    title = name || 'untitled'
+	}
+	return title
     }
 }
 
