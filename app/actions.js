@@ -26,7 +26,13 @@ function* getPostList() {
     // TODO catch errors
     const directory = '/Users/pascal/exocortex'
     const files = yield cps(fs.readdir, directory)
-    const paths = files.map(file => path.join(directory, file))
+    const paths = files
+          .filter(file => {
+	      const { ext } = path.parse(file)
+	      const isMarkdown = ['.md', '.markdown', '.mkd'].includes(ext)
+	      return isMarkdown
+	  })
+	  .map(file => path.join(directory, file))
     yield put({ type: RECEIVED_POST_LIST, paths })
     for (let filePath of paths) {
 	const contents = yield cps(fs.readFile, filePath, { encoding: 'utf-8' })
