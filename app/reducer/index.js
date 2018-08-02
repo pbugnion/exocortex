@@ -6,14 +6,48 @@ import {
     RECEIVED_POST_CONTENTS,
     RECEIVED_POST_AST,
     RECEIVED_POST_METADATA,
-    FINISHED_LOADING_POSTS
+    FINISHED_LOADING_POSTS,
+
+    SEARCH_POSTS_FULL_TEXT,
+    CLEAR_SEARCH,
+    APPEND_TO_SEARCH
 } from '../actions'
+
+import { PostSearcher } from '../services/search/postSearcher'
+import { SearchQuery } from '../services/search/searchQuery'
 
 const initialPostState = {
     receivedPosts: false,
     postPaths: null,
     posts: {},
-    finishedLoadingPosts: false
+    finishedLoadingPosts: false,
+    search: {
+	type: 'noSearch'
+    }
+}
+
+function getSearchResults(terms, posts) {
+    const postPaths = Object.keys(posts)
+    const relevantPosts = []
+    postPaths.forEach(postPath => {
+	const post = posts[postPath]
+	if (typeof post !== 'undefined') {
+	    const searchResultForPost = PostSearcher.searchPost(post, terms)
+	    const relevance = (
+		searchResultForPost === null ?
+		    0.0 :
+		    searchResultForPost.relevance
+	    )
+	    if (relevance !== 0.0) {
+		relevantPosts.push({
+		    postPath,
+		    relevance
+		})
+	    }
+	}
+    })
+    const results = relevantPosts.sort(({ relevance }) => relevance).reverse()
+    return results
 }
 
 function posts(state = initialPostState, action) {
@@ -44,6 +78,43 @@ function posts(state = initialPostState, action) {
     }
     case FINISHED_LOADING_POSTS:
 	return { ...state, finishedLoadingPosts: true }
+    case SEARCH_POSTS_FULL_TEXT: {
+	const { searchQuery } = action
+	const results = getSearchResults(searchQuery, state.posts)
+	return {
+	    ...state,
+	    search: {
+		type: 'fullText',
+		terms: searchQuery,
+		results
+	    }
+	}
+    }
+    case APPEND_TO_SEARCH: {
+	const { searchTerm } = action
+	const oldSearchState = state.search
+	const newSearchTerms = (
+	    oldSearchState.type === 'fullText' ?
+		[...oldSearchState.terms, searchTerm] :
+		[searchTerm]
+	)
+	const results = getSearchResults(newSearchTerms, state.posts)
+	return {
+	    ...state,
+	    search: {
+		type: 'fullText',
+		terms: newSearchTerms,
+		results
+	    }
+	}
+    }
+    case CLEAR_SEARCH:
+	return {
+	    ...state,
+	    search: {
+		type: 'noSearch'
+	    }
+	}
     default:
 	return state
     }

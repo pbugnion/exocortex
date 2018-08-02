@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react'
 
-import PostList from './PostList'
+import PostGraph from './PostGraph'
+import PostSearch from './PostSearch'
 
 class ContentsBody extends Component {
     render() {
@@ -10,13 +11,36 @@ class ContentsBody extends Component {
 	    return <div>Loading...</div>
 	}
 	else {
-	    const { postPaths, posts, navigateToPost } = this.props
+	    const {
+		postPaths,
+		posts,
+		selection,
+		searchTerms,
+		searchCallbacks,
+		navigateToPost
+	    } = this.props
 	    return (
-		<PostList
-		  postPaths={postPaths}
-		  posts={posts}
-		  navigateToPost={navigateToPost}
-		/>
+		<div className="pane-group">
+		  <div className="pane">
+		    <PostGraph
+		      postPaths={postPaths}
+		      posts={posts}
+		      searchCallbacks={searchCallbacks}
+		      navigateToPost={navigateToPost}
+		      selection={selection}
+		      />
+		  </div>
+		  <div className="pane-one-fourth sidebar">
+		    <PostSearch
+		      postPaths={postPaths}
+		      posts={posts}
+		      searchTerms={searchTerms}
+		      searchCallbacks={searchCallbacks}
+		      navigateToPost={navigateToPost}
+		      selection={selection}
+		    />
+		  </div>
+		</div>
 	    )
 	}
     }

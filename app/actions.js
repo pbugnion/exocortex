@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 
-import { MarkdownParser } from './services/markdown'
+import { MarkdownParser } from './services/markdown/parser'
 import { Metadata } from './services/posts'
 
 export const APP_START = 'APP_START'
@@ -13,6 +13,10 @@ export const RECEIVED_POST_CONTENTS = 'RECEIVED_POST_CONTENTS'
 export const RECEIVED_POST_AST = 'RECEIVED_POST_AST'
 export const RECEIVED_POST_METADATA = 'RECEIVED_POST_METADATA'
 export const FINISHED_LOADING_POSTS = 'FINISHED_LOADING_POSTS'
+
+export const SEARCH_POSTS_FULL_TEXT = 'SEARCH_POSTS_FULL_TEXT'
+export const APPEND_TO_SEARCH = 'APPEND_TO_SEARCH'
+export const CLEAR_SEARCH = 'CLEAR_SEARCH'
 
 function* watchAppStartup() {
     yield takeEvery(APP_START, getPostList)
@@ -40,6 +44,18 @@ function* getPostList() {
 	}
     }
     yield put({ type: FINISHED_LOADING_POSTS })
+}
+
+export function searchPostsFullText(searchQuery) {
+    return { type: SEARCH_POSTS_FULL_TEXT, searchQuery }
+}
+
+export function clearSearch() {
+    return { type: CLEAR_SEARCH }
+}
+
+export function appendToSearch(searchTerm) {
+    return { type: APPEND_TO_SEARCH, searchTerm }
 }
 
 export default function* appSagas() {

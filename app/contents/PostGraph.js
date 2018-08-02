@@ -7,7 +7,7 @@ import Graph from 'react-graph-vis'
 
 import { Tags, Title } from '../services/posts'
 
-class PostList extends Component {
+class PostGraph extends Component {
     constructor(props) {
 	super(props)
 	this.graphRef = React.createRef()
@@ -15,6 +15,24 @@ class PostList extends Component {
 
     getNetwork() {
 	return this.graphRef.current.Network
+    }
+
+    setSelectedPosts(selection) {
+	const { anySelected, selectedPosts } = selection
+	if (!anySelected) {
+	    this.getNetwork().selectNodes([])
+	} else {
+	    const selectedPostNodeIds = selectedPosts.map(post => `post:${post}`)
+	    this.getNetwork().selectNodes(selectedPostNodeIds)
+	}
+    }
+
+    componentDidMount() {
+	this.setSelectedPosts(this.props.selection)
+    }
+
+    componentDidUpdate() {
+	this.setSelectedPosts(this.props.selection)
     }
 
     render() {
@@ -108,34 +126,16 @@ class PostList extends Component {
 	    }
 	}
 	const events = {
-	    click: event => {
-		if (event.nodes.length === 0) {
-		    this.getNetwork().selectNodes([])
-		}
-	    },
-	    doubleClick: event => {
-	    	const [node] = event.nodes
-	    	const [group, path] = node.split(':', 2)
-	    	if (group === 'post') {
-	    	    this.props.navigateToPost(path)
-	    	}
-	    },
 	    selectNode: event => {
-		const [node] = event.nodes
-		const [group, id] = node.split(':', 2)
-		if (group === 'tag') {
-		    const neighbouringPosts = tagIndex[id]
-		    const neighbouringPostNodeIds = neighbouringPosts.map(
-			post => `post:${post}`
-		    )
-		    this.getNetwork().selectNodes(
-			[node, ...neighbouringPostNodeIds]
-		    )
-		} else if (group === 'post') {
-		    const tags = Tags.findAll(id, posts[id])
-		    const tagNodeIds = tags.map(tag => `tag:${tag}`)
-		    this.getNetwork().selectNodes([node, ...tagNodeIds])
-		}
+		event.nodes.forEach(node => {
+		    const [group, id] = node.split(':', 2)
+		    if (group === 'tag') {
+			this.props.searchCallbacks.appendToSearch(id)
+		    }
+		    else if (group === 'post') {
+			this.props.navigateToPost(id)
+		    }
+		})
 	    }
 	}
 	const graph = { nodes: [...postNodes, ...tagNodes], edges: tagToPostEdges }
@@ -151,4 +151,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default PostGraph
