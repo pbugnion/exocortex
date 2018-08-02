@@ -127,14 +127,15 @@ class PostGraph extends Component {
 	}
 	const events = {
 	    selectNode: event => {
-		const [node] = event.nodes
-		const [group, id] = node.split(':', 2)
-		if (group === 'tag') {
-		    this.props.searchCallbacks.appendToSearch(id)
-		}
-		else if (group === 'post') {
-		    this.props.navigateToPost(id)
-		}
+		event.nodes.forEach(node => {
+		    const [group, id] = node.split(':', 2)
+		    if (group === 'tag') {
+			this.props.searchCallbacks.appendToSearch(id)
+		    }
+		    else if (group === 'post') {
+			this.props.navigateToPost(id)
+		    }
+		})
 	    }
 	}
 	const graph = { nodes: [...postNodes, ...tagNodes], edges: tagToPostEdges }
