@@ -126,27 +126,14 @@ class PostGraph extends Component {
 	    }
 	}
 	const events = {
-	    click: event => {
-		if (event.nodes.length === 0) {
-		    this.getNetwork().selectNodes([])
-		}
-	    },
-	    doubleClick: event => {
-	    	const [node] = event.nodes
-	    	const [group, path] = node.split(':', 2)
-	    	if (group === 'post') {
-	    	    this.props.navigateToPost(path)
-	    	}
-	    },
 	    selectNode: event => {
 		const [node] = event.nodes
 		const [group, id] = node.split(':', 2)
 		if (group === 'tag') {
 		    this.props.searchCallbacks.appendToSearch(id)
-		} else if (group === 'post') {
-		    const tags = Tags.findAll(id, posts[id])
-		    const tagNodeIds = tags.map(tag => `tag:${tag}`)
-		    this.getNetwork().selectNodes([node, ...tagNodeIds])
+		}
+		else if (group === 'post') {
+		    this.props.navigateToPost(id)
 		}
 	    }
 	}
