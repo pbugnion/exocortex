@@ -1,0 +1,18 @@
+
+.PostContent {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 600px;
+
+    .CodeBlock {
+	pre, code, kbd, samp {
+	    font-family: Menlo, Courier, monospace;
+	}
+    }
+
+    code {
+	font-family: Menlo, Courier, monospace;
+    }
+}
