@@ -16,6 +16,7 @@ const CodeBlock = ({ language, value, inline }) => (
       language={language || 'js'}
       value={value || ''}
       inline={inline}
+      className="CodeBlock"
     />
 )
 

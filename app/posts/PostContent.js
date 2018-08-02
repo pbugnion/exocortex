@@ -3,7 +3,7 @@ import React from 'react'
 
 import PostAst from './PostAst'
 
-import './PostContent.css'
+import './PostContent.scss'
 
 const PostContent = ({ post })=> (
     <div className="PostContent">
