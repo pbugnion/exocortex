@@ -6,7 +6,7 @@ import ReactLowlight from 'react-lowlight';
 //import scala from 'highlight.js/lib/languages/scala'
 //import python from 'highlight.js/lib/languages/python'
 
-import 'highlight.js/styles/dracula.css'
+import 'highlight.js/styles/github.css'
 
 // Lowlight.registerLanguage('scala', scala)
 // Lowlight.registerLanguage('python', python)
