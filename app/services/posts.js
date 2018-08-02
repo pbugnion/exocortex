@@ -1,6 +1,6 @@
 
 export class Tags {
-    static findAll(filePath, post) {
+    static findAll(post) {
 	const metadata = Metadata.getMetadata(post)
 	const tags = (
 	      (typeof metadata.tags === 'undefined' || metadata.tags === null) ?
@@ -8,7 +8,7 @@ export class Tags {
 		metadata.tags
 	)
 	if (! Array.isArray(tags)) {
-	    throw new Error(`Tags for ${filePath} is not an array.`)
+	    throw new Error('Tags is not an array.')
 	}
 	return tags
     }
@@ -16,7 +16,7 @@ export class Tags {
     static buildTagInvertedIndex(posts) {
 	const tagsIndex = {}
 	Object.entries(posts).map(([filePath, post]) => {
-	    const tags = this.findAll(filePath, post)
+	    const tags = this.findAll(post)
 	    tags.forEach(tag => {
 		if (typeof tagsIndex[tag] === 'undefined') {
 		    tagsIndex[tag] = [filePath]
