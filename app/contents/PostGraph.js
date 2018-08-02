@@ -62,9 +62,9 @@ class PostGraph extends Component {
 		group: 'tags',
 		mass: Math.pow(posts.length, 1.5),
 		font: {
-		    size: 14 * Math.pow(posts.length, 0.4)
+		    size: 10 * Math.pow(posts.length, 0.4)
 		},
-		size: 10 * Math.pow(posts.length, 0.3),
+		size: 6 * Math.pow(posts.length, 0.3),
 		entity: 'tag'
 	    })
 	    const nodeIndex = index + postNodes.length
