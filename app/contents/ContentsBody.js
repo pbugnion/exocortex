@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 
-import PostSearch from './PostSearch'
+import PostSummaries from './PostSummaries'
 
 class ContentsBody extends Component {
     render() {
@@ -19,18 +19,14 @@ class ContentsBody extends Component {
 		navigateToPost
 	    } = this.props
 	    return (
-		<div className="pane-group">
-		  <div className="pane">
-		    <PostSearch
-		      postPaths={postPaths}
-		      posts={posts}
-		      searchTerms={searchTerms}
-		      searchCallbacks={searchCallbacks}
-		      navigateToPost={navigateToPost}
-		      selection={selection}
-		    />
-		  </div>
-		</div>
+		<PostSummaries
+		  postPaths={postPaths}
+		  posts={posts}
+		  searchTerms={searchTerms}
+		  searchCallbacks={searchCallbacks}
+		  navigateToPost={navigateToPost}
+		  selection={selection}
+		/>
 	    )
 	}
     }

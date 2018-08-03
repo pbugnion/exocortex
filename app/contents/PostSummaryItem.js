@@ -5,7 +5,7 @@ import { Tags, Title, Summary } from '../services/posts'
 
 import TagList from './TagList'
 
-const PostSearchItem = ({ path, post, navigateToPost }) => {
+const PostSummaryItem = ({ path, post, navigateToPost }) => {
     const title = Title.findOrFallback(path, post)
     const tags = Tags.findAll(post)
     const intro = Summary.create(post)
@@ -18,4 +18,4 @@ const PostSearchItem = ({ path, post, navigateToPost }) => {
     )
 }
 
-export default PostSearchItem
+export default PostSummaryItem

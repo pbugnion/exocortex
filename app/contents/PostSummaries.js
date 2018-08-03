@@ -3,10 +3,9 @@ import React, { Component } from 'react'
 
 import { Tags, Title } from '../services/posts'
 
-import PostSearchItem from './PostSearchItem'
-import PostSearchInput from './PostSearchInput'
+import PostSummaryItem from './PostSummaryItem'
 
-class PostSearch extends Component {
+class PostSummaries extends Component {
     render() {
 	const {
 	    postPaths,
@@ -22,7 +21,7 @@ class PostSearch extends Component {
 	}
 	const postItems = postPathsShown.map(path => {
 	    return (
-		<PostSearchItem
+		<PostSummaryItem
 		  path={path}
 		  post={posts[path]}
 		  key={path}
@@ -38,4 +37,4 @@ class PostSearch extends Component {
     }
 }
 
-export default PostSearch
+export default PostSummaries
