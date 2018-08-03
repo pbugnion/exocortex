@@ -1,5 +1,6 @@
 
 import path from 'path'
+import astToString from 'mdast-util-to-string'
 
 export class Tags {
     static findAll(post) {
@@ -13,6 +14,25 @@ export class Tags {
 	    throw new Error('Tags is not an array.')
 	}
 	return tags
+    }
+}
+
+export class Summary {
+    static create(post) {
+	const { ast } = post
+	if (typeof ast === 'undefined') {
+	    return ''
+	}
+	const { children } = ast
+	if (typeof children === 'undefined') {
+	    return ''
+	}
+	const paragraphs = children.filter(({ type }) => type === 'paragraph')
+	if (paragraphs.length === 0) {
+	    return ''
+	} else {
+	    return astToString(paragraphs[0]).substring(0, 200)
+	}
     }
 }
 

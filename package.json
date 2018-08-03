@@ -36,6 +36,7 @@
     "connected-react-router": "^4.3.0",
     "highlightjs": "^9.10.0",
     "js-yaml": "^3.12.0",
+    "mdast-util-to-string": "^1.0.4",
     "photonkit": "^0.1.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

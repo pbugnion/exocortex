@@ -1,5 +1,7 @@
 
-import { Tags, Metadata, MetadataParseError, Title } from './posts'
+import { Metadata, MetadataParseError, Title, Summary } from './posts'
+
+import { MarkdownParser } from './markdown/parser'
 
 describe('metadata.fromFrontMatter', () => {
     test('full frontmatter', () => {
@@ -112,5 +114,17 @@ describe('Title.findOrFallback', () => {
 
     test('no metadata', () => {
 	expect(Title.findOrFallback('path', {})).toEqual('path')
+    })
+})
+
+describe('Summary.create', () => {
+    test('works', () => {
+	const text = `
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at. Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.
+`
+	const expectedSummary = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at. Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna ve`
+	const ast = MarkdownParser.parse(text)
+	const post = { ast }
+	expect(Summary.create(post)).toEqual(expectedSummary)
     })
 })
