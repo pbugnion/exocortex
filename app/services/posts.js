@@ -14,21 +14,6 @@ export class Tags {
 	}
 	return tags
     }
-
-    static buildTagInvertedIndex(posts) {
-	const tagsIndex = {}
-	Object.entries(posts).map(([filePath, post]) => {
-	    const tags = this.findAll(post)
-	    tags.forEach(tag => {
-		if (typeof tagsIndex[tag] === 'undefined') {
-		    tagsIndex[tag] = [filePath]
-		} else {
-		    tagsIndex[tag].push(filePath)
-		}
-	    })
-	})
-	return tagsIndex
-    }
 }
 
 export class Title {
