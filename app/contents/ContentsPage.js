@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import ContentsNavbar from './ContentsNavbar'
 import ContentsBody from './ContentsBody'
 
+import './ContentsPage.scss'
+
 class ContentsPage extends Component {
     render() {
 	const {
@@ -17,7 +19,7 @@ class ContentsPage extends Component {
 	} = this.props
 
 	return (
-	    <div className="window">
+	    <div className="window ContentsPage">
 	      <ContentsNavbar />
 	      <div className="window-content">
 		<ContentsBody
