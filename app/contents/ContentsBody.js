@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 
-import PostGraph from './PostGraph'
 import PostSearch from './PostSearch'
 
 class ContentsBody extends Component {
@@ -22,15 +21,6 @@ class ContentsBody extends Component {
 	    return (
 		<div className="pane-group">
 		  <div className="pane">
-		    <PostGraph
-		      postPaths={postPaths}
-		      posts={posts}
-		      searchCallbacks={searchCallbacks}
-		      navigateToPost={navigateToPost}
-		      selection={selection}
-		      />
-		  </div>
-		  <div className="pane-one-fourth sidebar">
 		    <PostSearch
 		      postPaths={postPaths}
 		      posts={posts}

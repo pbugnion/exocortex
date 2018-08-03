@@ -11,9 +11,7 @@ class PostSearch extends Component {
 	const {
 	    postPaths,
 	    posts,
-	    searchTerms,
 	    selection,
-	    searchCallbacks,
 	    navigateToPost
 	} = this.props
 	let postPathsShown = [];
@@ -34,11 +32,6 @@ class PostSearch extends Component {
 	})
 	return (
 	    <ul className="list-group">
-	      <PostSearchInput
-		searchTerms={searchTerms}
-		searchCallbacks={searchCallbacks}
-		key={searchTerms}
-	      />
 	      {postItems}
 	    </ul>
 	)

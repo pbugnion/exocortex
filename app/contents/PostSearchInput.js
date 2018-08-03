@@ -28,16 +28,14 @@ class PostSearchInput extends Component {
 
     render() {
 	return (
-	    <li className="list-group-header">
-	      <input
-		autoFocus
-		className="form-control"
-		type="text"
-		placeholder="Search for a post"
-		value={this.state.value}
-		onChange={this.handleChange}
-		/>
-	    </li>
+	    <input
+	      autoFocus
+	      className="form-control"
+	      type="text"
+	      placeholder="Search for a post"
+	      value={this.state.value}
+	      onChange={this.handleChange}
+	      />
 	)
     }
 }
