@@ -30,7 +30,7 @@ export class Summary {
 	const paragraphs = children.filter(({ type }) => type === 'paragraph')
 	let summaries = []
 	let totalSummaryLength = 0;
-	for (let paragraph of paragraphs) {
+	for (let paragraph of paragraphs.slice(0, 2)) {
 	    if (totalSummaryLength > 500) break;
 	    const paragraphString = astToString(paragraph)
 	    summaries.push(paragraphString)
