@@ -118,11 +118,16 @@ describe('Title.findOrFallback', () => {
 })
 
 describe('Summary.create', () => {
-    test('works', () => {
+    test('multiple paragraphs', () => {
 	const text = `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at. Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at.
+
+Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.
 `
-	const expectedSummary = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at. Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna ve`
+	const expectedSummary = [
+	    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at.`,
+	    `Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.`
+	]
 	const ast = MarkdownParser.parse(text)
 	const post = { ast }
 	expect(Summary.create(post)).toEqual(expectedSummary)
