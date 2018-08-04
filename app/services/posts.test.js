@@ -132,4 +132,11 @@ Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna 
 	const post = { ast }
 	expect(Summary.create(post)).toEqual(expectedSummary)
     })
+
+    test('ignore third paragraph', () => {
+	const text = ['one', 'two', 'three'].join('\n\n')
+	const ast = MarkdownParser.parse(text)
+	const post = { ast }
+	expect(Summary.create(post)).toEqual(['one', 'two'])
+    })
 })
