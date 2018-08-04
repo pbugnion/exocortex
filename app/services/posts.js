@@ -31,10 +31,14 @@ export class Summary {
 	let summaries = []
 	let totalSummaryLength = 0;
 	for (let paragraph of paragraphs.slice(0, 2)) {
-	    if (totalSummaryLength > 500) break;
 	    const paragraphString = astToString(paragraph)
-	    summaries.push(paragraphString)
-	    totalSummaryLength += paragraphString.length
+	    if (paragraphString.length + totalSummaryLength > 500) {
+		summaries.push(paragraphString.substring(0, 500 - totalSummaryLength))
+		break
+	    } else {
+		summaries.push(paragraphString)
+		totalSummaryLength += paragraphString.length
+	    }
 	}
 	return summaries
     }
