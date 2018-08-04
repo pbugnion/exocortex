@@ -28,11 +28,15 @@ export class Summary {
 	    return ''
 	}
 	const paragraphs = children.filter(({ type }) => type === 'paragraph')
-	if (paragraphs.length === 0) {
-	    return ''
-	} else {
-	    return astToString(paragraphs[0]).substring(0, 200)
+	let summaries = []
+	let totalSummaryLength = 0;
+	for (let paragraph of paragraphs) {
+	    if (totalSummaryLength > 500) break;
+	    const paragraphString = astToString(paragraph)
+	    summaries.push(paragraphString)
+	    totalSummaryLength += paragraphString.length
 	}
+	return summaries
     }
 }
 
