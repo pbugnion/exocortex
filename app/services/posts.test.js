@@ -139,4 +139,9 @@ describe('Summary.create', () => {
 	const post = { ast }
 	expect(Summary.create(post)).toEqual(expectedSummary)
     })
+
+    test('missing ast', () => {
+	const post = {}
+	expect(Summary.create(post)).toEqual('')
+    })
 })
