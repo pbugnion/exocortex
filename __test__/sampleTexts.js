@@ -44,5 +44,14 @@ first
 second
 `,
 	expectedSummary: ['first', 'second']
+    },
+
+    withInlineFormatting: {
+	text: `
+this is *strong*
+
+second
+`,
+	expectedSummary: ['this is strong', 'second']
     }
 }

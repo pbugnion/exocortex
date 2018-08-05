@@ -147,6 +147,11 @@ describe('Summary.create', () => {
 
     testFromFixture('ignore titles', summaryFixtures.withTitle)
 
+    testFromFixture(
+	'strip out inline formatting',
+	summaryFixtures.withInlineFormatting
+    )
+
     test('missing ast', () => expect(Summary.create({})).toEqual(''))
 
 })
