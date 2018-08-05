@@ -119,12 +119,20 @@ describe('Title.findOrFallback', () => {
 
 describe('Summary.create', () => {
     const { summaryFixtures } = require('../../__test__/sampleTexts')
-    test('multiple paragraphs', () => {
-	const { text, expectedSummary } = summaryFixtures.multipleParagraphs
-	const ast = MarkdownParser.parse(text)
-	const post = { ast }
-	expect(Summary.create(post)).toEqual(expectedSummary)
-    })
+
+    function testFromFixture(testName, fixture) {
+	return test(
+	    testName,
+	    () => {
+		const { text, expectedSummary } = fixture
+		const ast = MarkdownParser.parse(text)
+		const post = { ast }
+		expect(Summary.create(post)).toEqual(expectedSummary)
+	    }
+	)
+    }
+
+    testFromFixture('multiple paragraphs', summaryFixtures.multipleParagraphs)
 
     test('ignore third paragraph', () => {
 	const text = ['one', 'two', 'three'].join('\n\n')
@@ -133,22 +141,9 @@ describe('Summary.create', () => {
 	expect(Summary.create(post)).toEqual(['one', 'two'])
     })
 
-    test('paragraph with over 500 characters', () => {
-	const { text, expectedSummary } = summaryFixtures.longParagraph
-	const ast = MarkdownParser.parse(text)
-	const post = { ast }
-	expect(Summary.create(post)).toEqual(expectedSummary)
-    })
+    testFromFixture('long paragraph', summaryFixtures.longParagraph)
 
-    test('ignore code lines', () => {
-	const { text, expectedSummary } = summaryFixtures.withCode
-	const ast = MarkdownParser.parse(text)
-	const post = { ast }
-	expect(Summary.create(post)).toEqual(expectedSummary)
-    })
+    testFromFixture('ignore code lines', summaryFixtures.withCode)
 
-    test('missing ast', () => {
-	const post = {}
-	expect(Summary.create(post)).toEqual('')
-    })
+    test('missing ast', () => expect(Summary.create({})).toEqual(''))
 })
