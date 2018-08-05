@@ -20,16 +20,17 @@ class ContentsPage extends Component {
 
 	return (
 	    <div className="window ContentsPage">
-	      <ContentsNavbar />
+	      <ContentsNavbar
+		searchTerms={searchTerms}
+		searchCallbacks={searchCallbacks}
+		/>
 	      <div className="window-content">
 		<ContentsBody
 		  finishedLoadingPosts={finishedLoadingPosts}
 		  postPaths={postPaths}
 		  posts={posts}
 		  selection={selection}
-		  searchTerms={searchTerms}
 		  navigateToPost={navigateToPost}
-		  searchCallbacks={searchCallbacks}
 		  />
 	       </div>
 	    </div>
