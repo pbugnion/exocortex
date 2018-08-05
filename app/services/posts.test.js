@@ -145,5 +145,8 @@ describe('Summary.create', () => {
 
     testFromFixture('ignore code lines', summaryFixtures.withCode)
 
+    testFromFixture('ignore titles', summaryFixtures.withTitle)
+
     test('missing ast', () => expect(Summary.create({})).toEqual(''))
+
 })

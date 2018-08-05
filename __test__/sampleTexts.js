@@ -33,5 +33,16 @@ first
 second
 `,
 	expectedSummary: ['first', 'second']
+    },
+
+    withTitle: {
+	text: `
+# this is a title
+
+first
+
+second
+`,
+	expectedSummary: ['first', 'second']
     }
 }
