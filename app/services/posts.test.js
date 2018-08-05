@@ -118,16 +118,9 @@ describe('Title.findOrFallback', () => {
 })
 
 describe('Summary.create', () => {
+    const { summaryFixtures } = require('../../__test__/sampleTexts')
     test('multiple paragraphs', () => {
-	const text = `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at.
-
-Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.
-`
-	const expectedSummary = [
-	    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada quam turpis, sit amet commodo odio commodo at.`,
-	    `Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna velit, non pretium leo faucibus eget. Ut dignissim eget mauris eu viverra. Sed nec ipsum ut lacus sed.`
-	]
+	const { text, expectedSummary } = summaryFixtures.multipleParagraphs
 	const ast = MarkdownParser.parse(text)
 	const post = { ast }
 	expect(Summary.create(post)).toEqual(expectedSummary)
@@ -138,5 +131,12 @@ Morbi quis turpis ac turpis condimentum imperdiet et vel velit. Sed porta magna 
 	const ast = MarkdownParser.parse(text)
 	const post = { ast }
 	expect(Summary.create(post)).toEqual(['one', 'two'])
+    })
+
+    test('paragraph with over 500 characters', () => {
+	const { text, expectedSummary } = summaryFixtures.longParagraph
+	const ast = MarkdownParser.parse(text)
+	const post = { ast }
+	expect(Summary.create(post)).toEqual(expectedSummary)
     })
 })
