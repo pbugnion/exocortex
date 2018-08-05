@@ -140,6 +140,13 @@ describe('Summary.create', () => {
 	expect(Summary.create(post)).toEqual(expectedSummary)
     })
 
+    test('ignore code lines', () => {
+	const { text, expectedSummary } = summaryFixtures.withCode
+	const ast = MarkdownParser.parse(text)
+	const post = { ast }
+	expect(Summary.create(post)).toEqual(expectedSummary)
+    })
+
     test('missing ast', () => {
 	const post = {}
 	expect(Summary.create(post)).toEqual('')
