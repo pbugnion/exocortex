@@ -41,7 +41,6 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-dotdotdot": "^1.2.3",
-    "react-graph-vis": "^1.0.2",
     "react-lowlight": "^2.0.0",
     "react-markdown": "^3.3.4",
     "react-redux": "^5.0.7",
