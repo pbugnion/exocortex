@@ -21,6 +21,6 @@ export type PostMap = { [string]: Post }
 
 export type SearchCallbacks = {|
     cleared: () => void,
-    fullText: string => void,
+    fullText: Array<string> => void,
     appendToSearch: string => void
 |}

@@ -1,5 +1,6 @@
+//@flow
 
-export function arrayEquals(a, b) {
+export function arrayEquals<T>(a: Array<T>, b: Array<T>) {
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length != b.length) return false;
