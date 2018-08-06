@@ -15,7 +15,10 @@ const PostSummaryItem = ({ path, post, navigateToPost }) => {
 	<p key={iline} className="SummaryTextParagraph">{line}</p>
     ))
     return (
-	<li className="list-group-item PostSummaryItem" onClick={() => navigateToPost(path)}>
+	<li
+	  className="list-group-item PostSummaryItem"
+	  onClick={() => navigateToPost(path)}
+	  >
 	  <div className="PostSummaryContent">
 	    <h3 className="PostTitle">{title}</h3>
 	    <TagList tags={tags}/>
