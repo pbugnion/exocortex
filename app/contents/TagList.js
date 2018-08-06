@@ -5,7 +5,7 @@ import Tag from './Tag'
 
 const TagList = ({ tags }) => {
     const tagComponents = tags.map(tag => <Tag tag={tag} key={tag}/>)
-    return <div>{tagComponents}</div>
+    return <div className="TagList">{tagComponents}</div>
 }
 
 export default TagList

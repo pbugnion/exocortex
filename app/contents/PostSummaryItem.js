@@ -12,17 +12,21 @@ const PostSummaryItem = ({ path, post, navigateToPost }) => {
     const tags = Tags.findAll(post)
     const intro = Summary.create(post)
     const introParagraphs = intro.map((line, iline) => (
-	<p key={iline} className="SummaryText">{line}</p>
+	<p key={iline} className="SummaryTextParagraph">{line}</p>
     ))
     return (
-	<li className="list-group-item" onClick={() => navigateToPost(path)}>
-	  <h3>{title}</h3>
-	  <TagList tags={tags}/>
-	  <DotDotDot clamp={2}>
-	    <div>
-	      {introParagraphs}
-	    </div>
-	  </DotDotDot>
+	<li className="list-group-item PostSummaryItem" onClick={() => navigateToPost(path)}>
+	  <div className="PostSummaryContent">
+	    <h3 className="PostTitle">{title}</h3>
+	    <TagList tags={tags}/>
+	    {intro.length !== 0 && (
+		<DotDotDot clamp={2}>
+		  <div className="SummaryText">
+		    {introParagraphs}
+		  </div>
+		</DotDotDot>
+	    )}
+	  </div>
 	</li>
     )
 }
