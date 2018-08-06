@@ -30,7 +30,6 @@ class PostSearchInput extends Component {
 	return (
 	    <input
 	      autoFocus
-	      className="form-control"
 	      type="text"
 	      placeholder="Search for a post"
 	      value={this.state.value}

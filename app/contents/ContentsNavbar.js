@@ -6,7 +6,7 @@ import PostSearchInput from './PostSearchInput'
 const ContentsNavbar = ({ searchTerms, searchCallbacks }) => (
     <header className="toolbar toolbar-header">
       <h1 className="title">Exocortex</h1>
-      <div className="toolbar-actions">
+      <div className="toolbar-actions ToolbarSearch">
 	<PostSearchInput
 	  searchTerms={searchTerms}
 	  searchCallbacks={searchCallbacks}

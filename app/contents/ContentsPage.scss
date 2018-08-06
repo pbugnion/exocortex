@@ -1,6 +1,14 @@
 
 .ContentsPage {
 
+    .ToolbarSearch {
+	margin-left: 28px;
+
+	input {
+	    width: 30em;
+	}
+    }
+
     .PostSummaryItem {
 	padding: 0;  // Reset original padding
 
