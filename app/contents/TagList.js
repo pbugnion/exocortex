@@ -1,9 +1,14 @@
+//@flow
 
 import React from 'react'
 
 import Tag from './Tag'
 
-const TagList = ({ tags }) => {
+type Props = {|
+    tags: Array<string>
+|}
+
+const TagList = ({ tags }: Props) => {
     const tagComponents = tags.map(tag => <Tag tag={tag} key={tag}/>)
     return <div className="TagList">{tagComponents}</div>
 }

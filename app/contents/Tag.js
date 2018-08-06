@@ -1,7 +1,12 @@
+//@flow
 
 import React from 'react'
 
-const Tag = ({ tag }) => (
+type Props = {|
+    tag: string
+|}
+
+const Tag = ({ tag }: Props) => (
     <span className="Tag">{tag}</span>
 )
 

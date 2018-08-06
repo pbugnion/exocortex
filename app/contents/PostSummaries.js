@@ -1,3 +1,4 @@
+//@flow
 
 import React, { Component } from 'react'
 
@@ -5,7 +6,16 @@ import { Tags, Title } from '../services/posts'
 
 import PostSummaryItem from './PostSummaryItem'
 
-class PostSummaries extends Component {
+import type { PostMap, Selection } from '../types'
+
+type Props = {|
+    postPaths: Array<string>,
+    posts: PostMap,
+    selection: Selection,
+    navigateToPost: string => void
+|}
+
+class PostSummaries extends Component<Props> {
     render() {
 	const {
 	    postPaths,
@@ -13,7 +23,7 @@ class PostSummaries extends Component {
 	    selection,
 	    navigateToPost
 	} = this.props
-	let postPathsShown = [];
+	let postPathsShown: Array<string> = [];
 	if (selection.anySelected) {
 	    postPathsShown = selection.selectedPosts
 	} else {
