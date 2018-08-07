@@ -1,3 +1,5 @@
+//@flow
+
 import React, { Component } from 'react'
 
 import ContentsNavbar from './ContentsNavbar'
@@ -5,7 +7,19 @@ import ContentsBody from './ContentsBody'
 
 import './ContentsPage.scss'
 
-class ContentsPage extends Component {
+import type { PostMap, Selection, SearchCallbacks } from '../types'
+
+type Props = {
+  finishedLoadingPosts: boolean,
+  postPaths: Array<string>,
+  posts: PostMap,
+  selection: Selection,
+  searchTerms: Array<string>,
+  searchCallbacks: SearchCallbacks,
+  navigateToPost: string => void
+}
+
+class ContentsPage extends Component<Props> {
   render() {
     const {
       finishedLoadingPosts,
