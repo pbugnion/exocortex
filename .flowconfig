@@ -1,11 +1,7 @@
-[ignore]
-
-[include]
-
 [libs]
-
-[lints]
+./interfaces/global.js
 
 [options]
-
-[strict]
+module.name_mapper='^\(.*\)\.scss$' -> 'CSSModule'
+module.name_mapper='^\(.*\)\.css$' -> 'CSSModule'
+module.system=haste
