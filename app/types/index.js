@@ -16,12 +16,6 @@ export type PostMetadata = {|
   title: ?string
 |}
 
-export type Post = {|
-    contents: string,
-    ast?: Object,
-    metadata?: PostMetadata
-|}
-
 export type PostMap = { [string]: Post }
 
 export type SearchCallbacks = {|
@@ -46,6 +40,12 @@ export type RelevantBranchNode = {|
 
 export type AstNode = {|
   type: string,
-  children: ?Array<AstNode>,
-  value: ?string
+  children?: Array<AstNode>,
+  value?: string
+|}
+
+export type Post = {|
+    contents: string,
+    ast?: AstNode,
+    metadata?: PostMetadata
 |}
