@@ -6,10 +6,10 @@ import PostSearchInput from './PostSearchInput'
 
 import type { SearchCallbacks } from '../types'
 
-type Props = {
+type Props = {|
     searchTerms: Array<string>,
     searchCallbacks: SearchCallbacks
-}
+|}
 
 const ContentsNavbar = ({ searchTerms, searchCallbacks }: Props) => (
     <header className="toolbar toolbar-header">
