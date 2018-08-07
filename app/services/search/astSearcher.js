@@ -1,3 +1,6 @@
+//@flow
+
+import type { AstNode, RelevantNode, RelevantLeafNode, RelevantBranchNode } from '../../types'
 
 const nodeWeights = {
   heading: 2,
@@ -8,12 +11,12 @@ const nodeWeights = {
 const excludedNodes = ['yaml', 'thematicBreak', 'image', 'imageReference', 'html']
 
 export class AstSearcher {
-  static buildRelevantAst(ast, term) {
+  static buildRelevantAst(ast: AstNode, term: string): ?RelevantNode {
     const lowercaseTerm = term.toLowerCase()
     return this._toRelevantNode(ast, lowercaseTerm)
   }
 
-  static _toRelevantNode(node, term) {
+  static _toRelevantNode(node: AstNode, term: string): ?RelevantNode {
     const { type } = node
     if (excludedNodes.includes(type)) {
       return null
@@ -29,7 +32,7 @@ export class AstSearcher {
       }
     } else {
       const { children } = node
-      if (typeof children === 'undefined') {
+      if (typeof children === 'undefined' || children === null) {
 	console.warn(`Unexpected node with no children: ${node.type}`)
 	return null
       }
@@ -37,7 +40,10 @@ export class AstSearcher {
       let totalUnweightedRelevance = 0.0
       children.forEach(child => {
 	const relevantChildMaybe = this._toRelevantNode(child, term)
-	if (relevantChildMaybe !== null) {
+	if (
+	  typeof relevantChildMaybe !== 'undefined' &&
+	  relevantChildMaybe !== null
+	) {
 	  relevantChildren.push(relevantChildMaybe)
 	  totalUnweightedRelevance += relevantChildMaybe.relevance
 	}
@@ -52,12 +58,12 @@ export class AstSearcher {
     }
   }
 
-  static _isLeafNode(node) {
+  static _isLeafNode(node: Object): boolean {
     const { type } = node
     return ['text', 'code', 'inlineCode'].includes(type)
   }
 
-  static _calculateLeafRelevance(leaf, term) {
+  static _calculateLeafRelevance(leaf: Object, term: string): number {
     const { type } = leaf
     if (type === 'text' || type === 'inlineCode') {
       const { value } = leaf
@@ -68,7 +74,7 @@ export class AstSearcher {
     }
   }
 
-  static _wrapRelevantLeafNode(node, relevance) {
+  static _wrapRelevantLeafNode(node: Object, relevance: number): RelevantLeafNode {
     return {
       type: node.type,
       relevance: relevance,
@@ -76,7 +82,11 @@ export class AstSearcher {
     }
   }
 
-  static _wrapRelevantBranchNode(node, relevance, relevantChildren) {
+  static _wrapRelevantBranchNode(
+    node: Object,
+    relevance: number,
+    relevantChildren: Array<Object>
+  ): RelevantBranchNode {
     return {
       type: node.type,
       relevance: relevance,
@@ -85,7 +95,11 @@ export class AstSearcher {
   }
 
   // copied from https://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string
-  static _occurrences(string, subString, allowOverlapping) {
+  static _occurrences(
+    string: string,
+    subString: string,
+    allowOverlapping: boolean
+  ): number {
     if (subString.length <= 0) return (string.length + 1);
 
     let n = 0

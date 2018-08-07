@@ -29,3 +29,23 @@ export type SearchCallbacks = {|
     fullText: Array<string> => void,
     appendToSearch: string => void
 |}
+
+export type RelevantNode = RelevantLeafNode | RelevantBranchNode
+
+export type RelevantLeafNode = {|
+  type: string,
+  relevance: number,
+  value: Object
+|}
+
+export type RelevantBranchNode = {|
+  type: string,
+  relevance: number,
+  children: Array<RelevantNode>
+|}
+
+export type AstNode = {|
+  type: string,
+  children: ?Array<AstNode>,
+  value: ?string
+|}
