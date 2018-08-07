@@ -34,8 +34,8 @@ class ContentsPage extends Component<Props> {
     return (
       <div className="window ContentsPage">
 	<ContentsNavbar
-	searchTerms={searchTerms}
-	searchCallbacks={searchCallbacks}
+	  searchTerms={searchTerms}
+	  searchCallbacks={searchCallbacks}
 	/>
 	<div className="window-content">
 	  <ContentsBody
