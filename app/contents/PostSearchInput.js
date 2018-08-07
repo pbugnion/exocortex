@@ -7,14 +7,14 @@ import { arrayEquals } from '../services/arrayEquals'
 
 import type { SearchCallbacks } from '../types'
 
-type Props = {
+type Props = {|
     searchTerms: Array<string>,
     searchCallbacks: SearchCallbacks
-}
+|}
 
-type State = {
+type State = {|
     value: string
-}
+|}
 
 class PostSearchInput extends Component<Props, State> {
     handleChange: SyntheticEvent<HTMLInputElement> => void
