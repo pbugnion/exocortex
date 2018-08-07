@@ -11,10 +11,15 @@ export type NonEmptySelection = {|
 
 export type Selection = EmptySelection | NonEmptySelection
 
+export type PostMetadata = {|
+  tags: Array<string>,
+  title: ?string
+|}
+
 export type Post = {|
     contents: string,
     ast?: Object,
-    metadata?: Object
+    metadata?: PostMetadata
 |}
 
 export type PostMap = { [string]: Post }
