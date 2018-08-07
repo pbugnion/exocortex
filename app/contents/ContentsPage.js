@@ -9,7 +9,7 @@ import './ContentsPage.scss'
 
 import type { PostMap, Selection, SearchCallbacks } from '../types'
 
-type Props = {
+type Props = {|
   finishedLoadingPosts: boolean,
   postPaths: Array<string>,
   posts: PostMap,
@@ -17,7 +17,7 @@ type Props = {
   searchTerms: Array<string>,
   searchCallbacks: SearchCallbacks,
   navigateToPost: string => void
-}
+|}
 
 class ContentsPage extends Component<Props> {
   render() {
