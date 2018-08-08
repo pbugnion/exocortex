@@ -1,130 +1,7 @@
 
-import { Tags, Metadata, MetadataParseError, Title } from './posts'
+import { Metadata, MetadataParseError, Title, Summary } from './posts'
 
-describe('Tags.buildInvertedIndex', () => {
-    test('single post', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['first', 'second', 'third']
-		}
-	    }
-	}
-	const tagIndex = Tags.buildTagInvertedIndex(posts)
-	expect(tagIndex).toEqual({
-	    'first': ['/path/1'],
-	    'second': ['/path/1'],
-	    'third': ['/path/1']
-	})
-    })
-
-    test('multiple posts', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1', 'both']
-		}
-	    },
-	    '/path/2': {
-		metadata: {
-		    tags: ['both', 'only-2']
-		}
-	    }
-	}
-	const tagIndex = Tags.buildTagInvertedIndex(posts)
-	expect(tagIndex).toEqual({
-	    'only-1': ['/path/1'],
-	    'only-2': ['/path/2'],
-	    'both': ['/path/1', '/path/2']
-	})
-    })
-
-    test('post with no tags', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1']
-		}
-	    },
-	    '/path/2': {
-		metadata: {
-		    tags: []
-		}
-	    }
-	}
-	const tagIndex = Tags.buildTagInvertedIndex(posts)
-	expect(tagIndex).toEqual({
-	    'only-1': ['/path/1']
-	})
-    })
-
-    test('post with null tags', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1']
-		}
-	    },
-	    '/path/2': {
-		metadata: {
-		    tags: null
-		}
-	    }
-	}
-	const tagIndex = Tags.buildTagInvertedIndex(posts)
-	expect(tagIndex).toEqual({
-	    'only-1': ['/path/1']
-	})
-    })
-
-    test('post with missing tags field', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1']
-		}
-	    },
-	    '/path/2': {
-		metadata: {}
-	    }
-	}
-	const tagIndex = Tags.buildTagInvertedIndex(posts)
-	expect(tagIndex).toEqual({
-	    'only-1': ['/path/1']
-	})
-    })
-
-    test('post with missing metadata field', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1']
-		}
-	    },
-	    'second-post': {}
-	}
-	expect(Tags.buildTagInvertedIndex(posts)).toEqual({
-	    'only-1': ['/path/1']
-	})
-    })
-
-    test('post with badly-formed tags field', () => {
-	const posts = {
-	    '/path/1': {
-		metadata: {
-		    tags: ['only-1']
-		}
-	    },
-	    'second-post': {
-		metadata: {
-		    tags: 'not-an-array'
-		}
-	    }
-	}
-	expect(() => Tags.buildTagInvertedIndex(posts))
-	    .toThrow(/second-post/)
-    })
-})
+import { MarkdownParser } from './markdown/parser'
 
 describe('metadata.fromFrontMatter', () => {
     test('full frontmatter', () => {
@@ -238,4 +115,43 @@ describe('Title.findOrFallback', () => {
     test('no metadata', () => {
 	expect(Title.findOrFallback('path', {})).toEqual('path')
     })
+})
+
+describe('Summary.create', () => {
+    const { summaryFixtures } = require('../../__test__/sampleTexts')
+
+    function testFromFixture(testName, fixture) {
+	return test(
+	    testName,
+	    () => {
+		const { text, expectedSummary } = fixture
+		const ast = MarkdownParser.parse(text)
+		const post = { ast }
+		expect(Summary.create(post)).toEqual(expectedSummary)
+	    }
+	)
+    }
+
+    testFromFixture('multiple paragraphs', summaryFixtures.multipleParagraphs)
+
+    test('ignore third paragraph', () => {
+	const text = ['one', 'two', 'three'].join('\n\n')
+	const ast = MarkdownParser.parse(text)
+	const post = { ast }
+	expect(Summary.create(post)).toEqual(['one', 'two'])
+    })
+
+    testFromFixture('long paragraph', summaryFixtures.longParagraph)
+
+    testFromFixture('ignore code lines', summaryFixtures.withCode)
+
+    testFromFixture('ignore titles', summaryFixtures.withTitle)
+
+    testFromFixture(
+	'strip out inline formatting',
+	summaryFixtures.withInlineFormatting
+    )
+
+    test('missing ast', () => expect(Summary.create({})).toEqual(''))
+
 })

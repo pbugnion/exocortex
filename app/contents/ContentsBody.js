@@ -1,49 +1,42 @@
+//@flow
 
 import React, { Component } from 'react'
 
-import PostGraph from './PostGraph'
-import PostSearch from './PostSearch'
+import PostSummaries from './PostSummaries'
 
-class ContentsBody extends Component {
-    render() {
-	const { finishedLoadingPosts } = this.props
-	if (!finishedLoadingPosts) {
-	    return <div>Loading...</div>
-	}
-	else {
-	    const {
-		postPaths,
-		posts,
-		selection,
-		searchTerms,
-		searchCallbacks,
-		navigateToPost
-	    } = this.props
-	    return (
-		<div className="pane-group">
-		  <div className="pane">
-		    <PostGraph
-		      postPaths={postPaths}
-		      posts={posts}
-		      searchCallbacks={searchCallbacks}
-		      navigateToPost={navigateToPost}
-		      selection={selection}
-		      />
-		  </div>
-		  <div className="pane-one-fourth sidebar">
-		    <PostSearch
-		      postPaths={postPaths}
-		      posts={posts}
-		      searchTerms={searchTerms}
-		      searchCallbacks={searchCallbacks}
-		      navigateToPost={navigateToPost}
-		      selection={selection}
-		    />
-		  </div>
-		</div>
-	    )
-	}
+import type { PostMap, Selection, SearchCallbacks } from '../types'
+
+type Props = {|
+  finishedLoadingPosts: boolean,
+  postPaths: Array<string>,
+  posts: PostMap,
+  selection: Selection,
+  navigateToPost: string => void
+|}
+
+class ContentsBody extends Component<Props> {
+  render() {
+    const { finishedLoadingPosts } = this.props
+    if (!finishedLoadingPosts) {
+      return <div>Loading...</div>
     }
+    else {
+      const {
+	postPaths,
+	posts,
+	selection,
+	navigateToPost
+      } = this.props
+      return (
+	<PostSummaries
+	  postPaths={postPaths}
+	  posts={posts}
+	  navigateToPost={navigateToPost}
+	  selection={selection}
+	/>
+      )
+    }
+  }
 }
 
 export default ContentsBody

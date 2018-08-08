@@ -1,22 +1,29 @@
+//@flow
 
 import React, { Component } from 'react'
 
 import { Tags, Title } from '../services/posts'
 
-import PostSearchItem from './PostSearchItem'
-import PostSearchInput from './PostSearchInput'
+import PostSummaryItem from './PostSummaryItem'
 
-class PostSearch extends Component {
+import type { PostMap, Selection } from '../types'
+
+type Props = {|
+    postPaths: Array<string>,
+    posts: PostMap,
+    selection: Selection,
+    navigateToPost: string => void
+|}
+
+class PostSummaries extends Component<Props> {
     render() {
 	const {
 	    postPaths,
 	    posts,
-	    searchTerms,
 	    selection,
-	    searchCallbacks,
 	    navigateToPost
 	} = this.props
-	let postPathsShown = [];
+	let postPathsShown: Array<string> = [];
 	if (selection.anySelected) {
 	    postPathsShown = selection.selectedPosts
 	} else {
@@ -24,7 +31,7 @@ class PostSearch extends Component {
 	}
 	const postItems = postPathsShown.map(path => {
 	    return (
-		<PostSearchItem
+		<PostSummaryItem
 		  path={path}
 		  post={posts[path]}
 		  key={path}
@@ -34,15 +41,10 @@ class PostSearch extends Component {
 	})
 	return (
 	    <ul className="list-group">
-	      <PostSearchInput
-		searchTerms={searchTerms}
-		searchCallbacks={searchCallbacks}
-		key={searchTerms}
-	      />
 	      {postItems}
 	    </ul>
 	)
     }
 }
 
-export default PostSearch
+export default PostSummaries

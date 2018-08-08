@@ -1,8 +1,9 @@
+//@flow
 
 const quoteTerms = ['"', "'"]
 
 export class SearchQuery {
-    static splitIntoTerms(query) {
+    static splitIntoTerms(query: string): Array<string> {
 	const terms = []
 	let currentTerm = ''
 	let isInsideQuotes = false
