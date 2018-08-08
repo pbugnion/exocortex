@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start:dev": "nf start",
+    "lint": "flow",
     "test": "jest",
     "test:watch": "jest --watch"
   },
