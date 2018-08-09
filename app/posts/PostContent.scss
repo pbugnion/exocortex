@@ -6,6 +6,10 @@
     margin-right: auto;
     max-width: 600px;
 
+    * {
+	-webkit-user-select: text;
+    }
+
     .CodeBlock {
 	pre, code, kbd, samp {
 	    font-family: Menlo, Courier, monospace;
