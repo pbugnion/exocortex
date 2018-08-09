@@ -30,7 +30,7 @@ const PostSummaryItem = ({ path, post, navigateToPost }: Props) => {
 	    <div className="PostSummaryContent">
 		<h3 className="PostTitle">{title}</h3>
 		<TagList tags={tags}/>
-		{intro.length !== 0 && (
+		{introParagraphs.length !== 0 && (
 		     <DotDotDot clamp={2}>
 			 <div className="SummaryText">
 			     {introParagraphs}

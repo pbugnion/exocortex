@@ -152,6 +152,6 @@ describe('Summary.create', () => {
 	summaryFixtures.withInlineFormatting
     )
 
-    test('missing ast', () => expect(Summary.create({})).toEqual(''))
+    test('missing ast', () => expect(Summary.create({})).toEqual([]))
 
 })
